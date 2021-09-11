@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Trans">
         <activity
-            android:name="com.example.screens.WelcomeScreen"
+            android:name="com.example.screens.MainScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,10 +20,6 @@
         </activity>
         <activity
             android:name="com.example.screens.MapScreen"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        </activity>
-        <activity
-            android:name="com.example.screens.MainScreen"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
     </application>
