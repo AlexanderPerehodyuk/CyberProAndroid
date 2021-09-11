@@ -12,7 +12,7 @@ import com.gun0912.tedpermission.normal.TedPermission;
 
 import java.util.List;
 
-public class WelcomeActivity extends AppCompatActivity {
+public class WelcomeScreen extends AppCompatActivity {
 // класс для создания окна с просьбой предоставить своё местоположение
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,14 +28,14 @@ public class WelcomeActivity extends AppCompatActivity {
                 } finally {
                     PermissionListener permissionlistener = new PermissionListener() { // создаёт окно для запроса
                         @Override
-                        public void onPermissionGranted() { // если доступ предоставили то перезод на другую активность(сейчас переходим на MainAcrivity где у нас карта)
-                            Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
+                        public void onPermissionGranted() { // если доступ предоставили то перезод на другую активность(сейчас переходим на MainScree где у нас главное меню)
+                            Intent intent = new Intent(WelcomeScreen.this, MainScreen.class);
                             startActivity(intent);
                         }
 
                         @Override
                         public void onPermissionDenied(List<String> deniedPermissions) { // если не дали разрешение то выход из приложения
-                            Toast.makeText(WelcomeActivity.this, "Доступ запрещён\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(WelcomeScreen.this, "Доступ запрещён\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
                         }
 
                     };

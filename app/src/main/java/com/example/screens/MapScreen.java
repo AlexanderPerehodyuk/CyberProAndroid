@@ -9,7 +9,7 @@ import com.yandex.mapkit.MapKitFactory;
 import com.yandex.mapkit.map.CameraPosition;
 import com.yandex.mapkit.mapview.MapView;
 
-public class MainActivity extends AppCompatActivity {
+public class MapScreen extends AppCompatActivity {
 
     private MapView mapview;
     @Override

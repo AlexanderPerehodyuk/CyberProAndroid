@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">aboba</string>
+    <!-- Надо придумать ко всему нормальные названия-->
+    <string name="app_name">Глаз бога</string>
+    <string name="map">Карта проблем</string>
+    <string name="problems_list">Список проблем</string>
+    <string name="my_problems">Мои проблемы</string>
+    <string name="add_problem">Добавить проблему</string>
 </resources>
