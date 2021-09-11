@@ -1,13 +1,20 @@
 package com.example.screens;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.normal.TedPermission;
+
+import java.util.List;
 
 public class MainScreen extends AppCompatActivity {
     private LinearLayout add_problem;
@@ -19,6 +26,35 @@ public class MainScreen extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_screen);
+        setContentView(R.layout.activity_welcome);
+        Thread thread = new Thread() {
+            public void run() {
+                super.run();
+                try {
+                    sleep(3000);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    PermissionListener permissionlistener = new PermissionListener() {
+                        @Override
+                        public void onPermissionGranted() {
+                        }
+
+                        @Override
+                        public void onPermissionDenied(List<String> deniedPermissions) {
+                            Toast.makeText(MainScreen.this, "Доступ запрещён\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+                        }
+
+                    };
+                    TedPermission.create()
+                            .setPermissionListener(permissionlistener)
+                            .setDeniedMessage("Для использования приложения нужно предоставить доступ к вашему местоположению")
+                            .setPermissions(Manifest.permission.ACCESS_FINE_LOCATION)
+                            .check();
+                }
+            }
+        };
+        thread.start();
         add_problem = findViewById(R.id.add_problem_ll);
         map = findViewById(R.id.map_ll);
         all_problem_list = findViewById(R.id.problem_ll);
@@ -52,5 +88,10 @@ public class MainScreen extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
     }
 }
