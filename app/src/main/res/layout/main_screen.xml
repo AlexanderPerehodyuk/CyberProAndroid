@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/purple_200">
+    >
+
+
 
     <LinearLayout
 
@@ -17,7 +20,7 @@
         <ImageView
 
             android:layout_width="wrap_content"
-            android:layout_height="300dp"
+            android:layout_height="250dp"
             app:srcCompat="@drawable/visibility_78432"></ImageView>
 
         <TextView
@@ -44,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/add_problem"
-            android:textSize="36sp"></TextView>
+            android:textSize="30sp"></TextView>
     </LinearLayout>
 
     <LinearLayout
@@ -59,12 +62,13 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             app:srcCompat="@drawable/png_map_icon"></ImageView>
+
         <TextView
             android:id="@+id/map_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/map"
-            android:textSize="36sp"></TextView>
+            android:textSize="30sp"></TextView>
     </LinearLayout>
 
     <LinearLayout
@@ -82,7 +86,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/problems_list"
-            android:textSize="36sp"></TextView>
+            android:textSize="30sp"></TextView>
     </LinearLayout>
 
     <LinearLayout
@@ -100,7 +104,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/my_problems"
-            android:textSize="36sp"></TextView>
+            android:textSize="30sp"></TextView>
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/text_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

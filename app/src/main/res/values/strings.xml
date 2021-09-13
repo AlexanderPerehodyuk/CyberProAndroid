@@ -1,6 +1,6 @@
 <resources>
     <!-- Надо придумать ко всему нормальные названия-->
-    <string name="app_name">Глаз бога</string>
+    <string name="app_name">Глаз народа</string>
     <string name="map">Карта проблем</string>
     <string name="problems_list">Список проблем</string>
     <string name="my_problems">Мои проблемы</string>
