@@ -1,5 +1,7 @@
 package com.example.screens;
 
+import static com.example.screens.MapScreen.mapview;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -30,10 +32,13 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
+import com.yandex.mapkit.Animation;
 import com.yandex.mapkit.MapKitFactory;
+import com.yandex.mapkit.map.CameraPosition;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class MainScreen extends AppCompatActivity implements LocationListener {
     private LinearLayout add_problem;
@@ -44,8 +49,10 @@ public class MainScreen extends AppCompatActivity implements LocationListener {
     public static double longitude;
     TextView textView_location;
     LocationManager locationManager;
+    boolean checkCoords = false;
 
     final String MAPKIT_API_KEY = "61db36cd-2c66-4ba0-a8dc-686b6a0515b8";
+
 
 
     @Override
@@ -144,6 +151,8 @@ public class MainScreen extends AppCompatActivity implements LocationListener {
 //    }
 
 
+
+
     }
     @SuppressLint("MissingPermission")
     private void getLocation() {
@@ -151,6 +160,11 @@ public class MainScreen extends AppCompatActivity implements LocationListener {
         try {
             locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,100,0,MainScreen.this);
+//            mapview.getMap().move( // при запуске приложения переносимя на координаты которые прописаны в Point, в дальнейшем вместо них будут переменные для местоположения
+//                    new CameraPosition(new com.yandex.mapkit.geometry.Point(latitude, longitude), 17.0f, 0.0f, 0.0f),
+//                    new Animation(Animation.Type.SMOOTH, 1),
+//                    null);
+
 
         }catch (Exception e){
             e.printStackTrace();
@@ -161,16 +175,27 @@ public class MainScreen extends AppCompatActivity implements LocationListener {
     public void onLocationChanged(Location location) {
 //        Toast.makeText(this, ""+location.getLatitude()+","+location.getLongitude(), Toast.LENGTH_SHORT).show();
         try {
+
             Geocoder geocoder = new Geocoder(MainScreen.this, Locale.getDefault());
             List<Address> addresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
             String address = addresses.get(0).getAddressLine(0);
             latitude = location.getLatitude();
             longitude = location.getLongitude();
 //            textView_location.setText(latitude + "" + longitude);
-            textView_location.setText(address);
+//            Log.i("latit", String.valueOf(latitude));
+//            Log.i("latit", String.valueOf(longitude));
 
+//            textView_location.setText(latitude + "" +  longitude);
+            if(!checkCoords) {
+                mapview.getMap().move( // при запуске приложения переносимя на координаты которые прописаны в Point, в дальнейшем вместо них будут переменные для местоположения
+                new CameraPosition(new com.yandex.mapkit.geometry.Point(latitude, longitude), 16.5f, 0.0f, 0.0f),
+                new Animation(Animation.Type.SMOOTH, 1),
+                null);
+                checkCoords = true;
+            }
         }catch (Exception e){
             e.printStackTrace();
+
         }
 
 

@@ -34,6 +34,10 @@ repositories {
     }
 }
 dependencies {
+
+
+
+
     implementation 'io.github.ParkSangGwon:tedpermission-normal:3.2.3'
 //    implementation 'com.yandex.android:maps.mobile:4.0.0-lite'
     implementation 'com.yandex.android:maps.mobile:4.0.0-full'
