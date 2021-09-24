@@ -1,23 +1,37 @@
 package com.example.screens;
 
+
+
 import static com.example.screens.MainScreen.latitude;
 import static com.example.screens.MainScreen.longitude;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.PointF;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yandex.mapkit.Animation;
 import com.yandex.mapkit.MapKit;
@@ -45,7 +59,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class MapScreen extends AppCompatActivity implements GeoObjectTapListener, UserLocationObjectListener {
-
+    boolean checkTheCurrentPosition = false;
     Button m0rder;
     TextView mITemSelected;
     String[] listItems;
@@ -53,6 +67,7 @@ public class MapScreen extends AppCompatActivity implements GeoObjectTapListener
     ArrayList<Integer> mUserItems = new ArrayList<>();
     static MapView mapview;
     private UserLocationLayer userLocationLayer;
+    ImageView imageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -62,16 +77,12 @@ public class MapScreen extends AppCompatActivity implements GeoObjectTapListener
 
         setContentView(R.layout.activity_main);
 
+
+
         mapview = (MapView)findViewById(R.id.mapview); // находим нашу карту в loyout
-//      new PointF((float)(mapview.getWidth() * 0.5), (float)(mapview.getHeight() * 0.5)),
-//        while  (longitude != 0.0) {
-//                    mapview.getMap().move( // при запуске приложения переносимя на координаты которые прописаны в Point, в дальнейшем вместо них будут переменные для местоположения
-//                new CameraPosition(new com.yandex.mapkit.geometry.Point(latitude, longitude), 17.0f, 0.0f, 0.0f),
-//                new Animation(Animation.Type.SMOOTH, 1),
-//                null);
-//        }
+//
 //        mapview.getMap().move( // при запуске приложения переносимя на координаты которые прописаны в Point, в дальнейшем вместо них будут переменные для местоположения
-//                new CameraPosition(new com.yandex.mapkit.geometry.Point(, longitude), 17.0f, 0.0f, 0.0f),
+//                new CameraPosition(new com.yandex.mapkit.geometry.Point(latitude, longitude), 17.0f, 0.0f, 0.0f),
 //                new Animation(Animation.Type.SMOOTH, 1),
 //                null);
 //        Handler handler = new Handler();
@@ -88,11 +99,32 @@ public class MapScreen extends AppCompatActivity implements GeoObjectTapListener
         mapview.getMap().addTapListener(this);
         MapKit mapKit = MapKitFactory.getInstance();
         userLocationLayer = mapKit.createUserLocationLayer(mapview.getMapWindow());
+        imageView = (ImageView) findViewById(R.id.add_problem_view);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
+                startActivity(intent);
+            }
+        });
+
         userLocationLayer.setVisible(true);
 //        userLocationLayer.setHeadingEnabled(true);
+//        if (!checkTheCurrentPosition) {
+////            userLocationLayer.setEnabled(false);
+////            userLocationLayer.setHeadingEnabled(true);
+//            userLocationLayer.setObjectListener(this);
+//            checkTheCurrentPosition = true;
+//
+//        }
+
+//        userLocationLayer.setHeadingEnabled(true);
 //        userLocationLayer.setObjectListener(this);
+
+//        userLocationLayer.isAutoZoomEnabled();
         m0rder = (Button) findViewById(R.id.bntOrder);
         mITemSelected = (TextView) findViewById(R.id.tvItemSelected);
+
 
         listItems = getResources().getStringArray(R.array.problems_item);
         checkedItems = new boolean[listItems.length];

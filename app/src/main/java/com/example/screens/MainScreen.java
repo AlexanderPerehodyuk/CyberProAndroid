@@ -52,7 +52,58 @@ public class MainScreen extends AppCompatActivity implements LocationListener {
     boolean checkCoords = false;
 
     final String MAPKIT_API_KEY = "61db36cd-2c66-4ba0-a8dc-686b6a0515b8";
+    @SuppressLint("MissingPermission")
+    private void getLocation() {
 
+        try {
+            locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0,0,MainScreen.this);
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+    @Override
+    public void onLocationChanged(Location location) {
+//        Toast.makeText(this, ""+location.getLatitude()+","+location.getLongitude(), Toast.LENGTH_SHORT).show();
+        try {
+
+//            Geocoder geocoder = new Geocoder(MainScreen.this, Locale.getDefault());
+//            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
+//            String address = addresses.get(0).getAddressLine(0);
+            latitude = location.getLatitude();
+            longitude = location.getLongitude();
+
+            if(!checkCoords) {
+                mapview.getMap().move( // при запуске приложения переносимя на координаты которые прописаны в Point, в дальнейшем вместо них будут переменные для местоположения
+                        new CameraPosition(new com.yandex.mapkit.geometry.Point(latitude, longitude), 15.0f, 0.0f, 0.0f),
+                        new Animation(Animation.Type.SMOOTH, 1),
+                        null);
+                checkCoords = true;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+
+        }
+
+
+    }
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
 
 
     @Override
@@ -145,75 +196,11 @@ public class MainScreen extends AppCompatActivity implements LocationListener {
 //        });
 //    }
 
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//    }
-
 
 
 
     }
-    @SuppressLint("MissingPermission")
-    private void getLocation() {
 
-        try {
-            locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,100,0,MainScreen.this);
-//            mapview.getMap().move( // при запуске приложения переносимя на координаты которые прописаны в Point, в дальнейшем вместо них будут переменные для местоположения
-//                    new CameraPosition(new com.yandex.mapkit.geometry.Point(latitude, longitude), 17.0f, 0.0f, 0.0f),
-//                    new Animation(Animation.Type.SMOOTH, 1),
-//                    null);
-
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-    }
-    @Override
-    public void onLocationChanged(Location location) {
-//        Toast.makeText(this, ""+location.getLatitude()+","+location.getLongitude(), Toast.LENGTH_SHORT).show();
-        try {
-
-            Geocoder geocoder = new Geocoder(MainScreen.this, Locale.getDefault());
-            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
-            String address = addresses.get(0).getAddressLine(0);
-            latitude = location.getLatitude();
-            longitude = location.getLongitude();
-//            textView_location.setText(latitude + "" + longitude);
-//            Log.i("latit", String.valueOf(latitude));
-//            Log.i("latit", String.valueOf(longitude));
-
-//            textView_location.setText(latitude + "" +  longitude);
-            if(!checkCoords) {
-                mapview.getMap().move( // при запуске приложения переносимя на координаты которые прописаны в Point, в дальнейшем вместо них будут переменные для местоположения
-                new CameraPosition(new com.yandex.mapkit.geometry.Point(latitude, longitude), 16.5f, 0.0f, 0.0f),
-                new Animation(Animation.Type.SMOOTH, 1),
-                null);
-                checkCoords = true;
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-
-        }
-
-
-    }
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
-
-    }
 }
 
 
