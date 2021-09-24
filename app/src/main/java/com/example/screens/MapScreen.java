@@ -59,7 +59,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class MapScreen extends AppCompatActivity implements GeoObjectTapListener, UserLocationObjectListener {
-    boolean checkTheCurrentPosition = false;
+
     Button m0rder;
     TextView mITemSelected;
     String[] listItems;
@@ -80,21 +80,7 @@ public class MapScreen extends AppCompatActivity implements GeoObjectTapListener
 
 
         mapview = (MapView)findViewById(R.id.mapview); // находим нашу карту в loyout
-//
-//        mapview.getMap().move( // при запуске приложения переносимя на координаты которые прописаны в Point, в дальнейшем вместо них будут переменные для местоположения
-//                new CameraPosition(new com.yandex.mapkit.geometry.Point(latitude, longitude), 17.0f, 0.0f, 0.0f),
-//                new Animation(Animation.Type.SMOOTH, 1),
-//                null);
-//        Handler handler = new Handler();
-//        handler.postDelayed(new Runnable() {
-//            public void run() {
-//
-//        mapview.getMap().move( // при запуске приложения переносимя на координаты которые прописаны в Point, в дальнейшем вместо них будут переменные для местоположения
-//                new CameraPosition(new Point(latitude, longitude), 10.0f, 0.0f, 0.0f),
-//                new Animation(Animation.Type.SMOOTH, 1),
-//                null);
-//            }
-//        }, 9000); //specify the number of milliseconds
+
 
         mapview.getMap().addTapListener(this);
         MapKit mapKit = MapKitFactory.getInstance();
@@ -109,26 +95,18 @@ public class MapScreen extends AppCompatActivity implements GeoObjectTapListener
         });
 
         userLocationLayer.setVisible(true);
-//        userLocationLayer.setHeadingEnabled(true);
-//        if (!checkTheCurrentPosition) {
-////            userLocationLayer.setEnabled(false);
-////            userLocationLayer.setHeadingEnabled(true);
-//            userLocationLayer.setObjectListener(this);
-//            checkTheCurrentPosition = true;
-//
-//        }
 
 //        userLocationLayer.setHeadingEnabled(true);
 //        userLocationLayer.setObjectListener(this);
 
-//        userLocationLayer.isAutoZoomEnabled();
+
         m0rder = (Button) findViewById(R.id.bntOrder);
         mITemSelected = (TextView) findViewById(R.id.tvItemSelected);
 
 
         listItems = getResources().getStringArray(R.array.problems_item);
         checkedItems = new boolean[listItems.length];
-//        moveCameraToPosition(Objects.requireNonNull(userLocationLayer.cameraPosition()).getTarget());
+
         m0rder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -236,11 +214,6 @@ public class MapScreen extends AppCompatActivity implements GeoObjectTapListener
 //        );
 
         userLocationView.getAccuracyCircle().setFillColor(Color.BLUE & 0x99ffffff);
-    }
-    public void moveCameraToPosition(@NonNull Point target) {
-        mapview.getMap().move(
-                new CameraPosition(target, 15.0f, 0.0f, 0.0f),
-                new Animation(Animation.Type.SMOOTH, 2), null);
     }
 
     @Override

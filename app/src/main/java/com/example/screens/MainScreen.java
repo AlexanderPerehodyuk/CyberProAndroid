@@ -67,7 +67,7 @@ public class MainScreen extends AppCompatActivity implements LocationListener {
     }
     @Override
     public void onLocationChanged(Location location) {
-//        Toast.makeText(this, ""+location.getLatitude()+","+location.getLongitude(), Toast.LENGTH_SHORT).show();
+
         try {
 
 //            Geocoder geocoder = new Geocoder(MainScreen.this, Locale.getDefault());
@@ -155,12 +155,7 @@ public class MainScreen extends AppCompatActivity implements LocationListener {
         }
 
 
-//        button_location.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                getLocation();
-//            }
-//        });
+
 
         add_problem = findViewById(R.id.add_problem_ll);
         map = findViewById(R.id.map_ll);
@@ -182,6 +177,12 @@ public class MainScreen extends AppCompatActivity implements LocationListener {
 
             }
         });
+        //        button_location.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                getLocation();
+//            }
+//        });
 //        all_problem_list.setOnClickListener(new View.OnClickListener() {
 //            /*  Пока ничего, но потом должно кидать на список всех проблем */
 //            @Override
