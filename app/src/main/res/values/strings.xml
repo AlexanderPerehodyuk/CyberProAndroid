@@ -5,4 +5,10 @@
     <string name="problems_list">Список проблем</string>
     <string name="my_problems">Мои проблемы</string>
     <string name="add_problem">Добавить проблему</string>
+    <string-array name="problems_item">
+        <item>ЖКХ</item>
+        <item>Транспортная</item>
+        <item>Социальные</item>
+        <item>Экологические</item>
+    </string-array>
 </resources>
