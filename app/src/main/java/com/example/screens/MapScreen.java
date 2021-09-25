@@ -15,7 +15,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.PointF;
 import android.location.Location;
 import android.location.LocationListener;
@@ -59,7 +63,8 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class MapScreen extends AppCompatActivity implements GeoObjectTapListener, UserLocationObjectListener {
-
+    public int size_place = 10;
+    public int size_text = 10;
     Button m0rder;
     TextView mITemSelected;
     String[] listItems;
@@ -67,7 +72,7 @@ public class MapScreen extends AppCompatActivity implements GeoObjectTapListener
     ArrayList<Integer> mUserItems = new ArrayList<>();
     static MapView mapview;
     private UserLocationLayer userLocationLayer;
-    ImageView imageView;
+    ImageView imageView, findYourLocationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -77,15 +82,36 @@ public class MapScreen extends AppCompatActivity implements GeoObjectTapListener
 
         setContentView(R.layout.activity_main);
 
+        Bitmap source = BitmapFactory.decodeResource(getBaseContext().getResources(), R.drawable.problem);
+// создаем mutable копию, чтобы можно было рисовать поверх
+        Bitmap bitmap = source.copy(Bitmap.Config.ARGB_8888, true);
+// инициализируем канвас
+        Canvas canvas = new Canvas(bitmap);
+// рисуем текст на канвасе аналогично примеру выше
 
 
         mapview = (MapView)findViewById(R.id.mapview); // находим нашу карту в loyout
-
+        mapview.getMap().move( // при запуске приложения переносимя на координаты которые прописаны в Point, в дальнейшем вместо них будут переменные для местоположения
+                new CameraPosition(new com.yandex.mapkit.geometry.Point(latitude, longitude), 16.0f, 0.0f, 0.0f),
+                new Animation(Animation.Type.SMOOTH, 1),
+                null);
 
         mapview.getMap().addTapListener(this);
         MapKit mapKit = MapKitFactory.getInstance();
         userLocationLayer = mapKit.createUserLocationLayer(mapview.getMapWindow());
         imageView = (ImageView) findViewById(R.id.add_problem_view);
+        findYourLocationView = (ImageView) findViewById(R.id.findYourLocationViewgeView);
+        findYourLocationView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mapview.getMap().move( // при запуске приложения переносимя на координаты которые прописаны в Point, в дальнейшем вместо них будут переменные для местоположения
+                        new CameraPosition(new com.yandex.mapkit.geometry.Point(latitude, longitude), 16.0f, 0.0f, 0.0f),
+                        new Animation(Animation.Type.SMOOTH, 1),
+                        null);
+                        mapview.getMap().getMapObjects().addPlacemark(new com.yandex.mapkit.geometry.Point(latitude, longitude));
+//                        mapview.getMap().getMapObjects().add);
+            }
+        });
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,11 +127,13 @@ public class MapScreen extends AppCompatActivity implements GeoObjectTapListener
 
 
         m0rder = (Button) findViewById(R.id.bntOrder);
-        mITemSelected = (TextView) findViewById(R.id.tvItemSelected);
+//        mITemSelected = (TextView) findViewById(R.id.tvItemSelected);
 
 
         listItems = getResources().getStringArray(R.array.problems_item);
         checkedItems = new boolean[listItems.length];
+
+
 
         m0rder.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,7 +162,7 @@ public class MapScreen extends AppCompatActivity implements GeoObjectTapListener
                                 item = item + ", ";
                             }
                         }
-                        mITemSelected.setText(item);
+//                        mITemSelected.setText(item);
                     }
                 });
                 mBuilder.setNegativeButton("Отменить", new DialogInterface.OnClickListener() {
@@ -159,6 +187,24 @@ public class MapScreen extends AppCompatActivity implements GeoObjectTapListener
         });
     }
 
+//    public Bitmap drawSimpleBitmap(String number) {
+//        int picSize = size_place;
+//        Bitmap bitmap = Bitmap.createBitmap(picSize, picSize, Bitmap.Config.ARGB_8888);
+//        Canvas canvas = new Canvas(bitmap);
+//        // отрисовка плейсмарка
+//        Paint paint = new Paint();
+//        paint.setColor(Color.BLACK);
+//        paint.setStyle(Paint.Style.FILL);
+//        canvas.drawCircle(picSize / 2, picSize / 2, picSize / 2, paint);
+//        // отрисовка текста
+//        paint.setColor(Color.WHITE);
+//        paint.setAntiAlias(true);
+//        paint.setTextSize(size_text);
+//        paint.setTextAlign(Paint.Align.CENTER);
+//        canvas.drawText(number, picSize / 2,
+//                picSize / 2 - ((paint.descent() + paint.ascent()) / 2), paint);
+//        return bitmap;
+//    }
     // отображение карты и остановка обработки карты, когда Activity с картой становится невидимым для пользователя
     @Override
     protected void onStop() {
@@ -194,11 +240,12 @@ public class MapScreen extends AppCompatActivity implements GeoObjectTapListener
     @Override
     public void onObjectAdded(@NonNull UserLocationView userLocationView) {
         userLocationLayer.setAnchor(
+
                 new PointF((float)(mapview.getWidth() * 0.5), (float)(mapview.getHeight() * 0.5)),
                 new PointF((float)(mapview.getWidth() * 0.5), (float)(mapview.getHeight() * 0.83)));
 
-        userLocationView.getArrow().setIcon(ImageProvider.fromResource(
-                this, R.drawable.user_place));
+//        userLocationView.getArrow().setIcon(ImageProvider.fromResource(
+//                this, R.drawable.user_place));
 
 //        CompositeIcon pinIcon = userLocationView.getPin().useCompositeIcon();
 //

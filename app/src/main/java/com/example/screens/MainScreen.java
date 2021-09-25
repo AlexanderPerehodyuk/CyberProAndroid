@@ -47,9 +47,9 @@ public class MainScreen extends AppCompatActivity implements LocationListener {
     private LinearLayout my_problem;
     public static double latitude;
     public static double longitude;
-    TextView textView_location;
+//    TextView textView_location;
     LocationManager locationManager;
-    boolean checkCoords = false;
+//    boolean checkCoords = false;
 
     final String MAPKIT_API_KEY = "61db36cd-2c66-4ba0-a8dc-686b6a0515b8";
     @SuppressLint("MissingPermission")
@@ -57,7 +57,7 @@ public class MainScreen extends AppCompatActivity implements LocationListener {
 
         try {
             locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0,0,MainScreen.this);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,1000,10,MainScreen.this);
 
 
         }catch (Exception e){
@@ -76,13 +76,7 @@ public class MainScreen extends AppCompatActivity implements LocationListener {
             latitude = location.getLatitude();
             longitude = location.getLongitude();
 
-            if(!checkCoords) {
-                mapview.getMap().move( // при запуске приложения переносимя на координаты которые прописаны в Point, в дальнейшем вместо них будут переменные для местоположения
-                        new CameraPosition(new com.yandex.mapkit.geometry.Point(latitude, longitude), 15.0f, 0.0f, 0.0f),
-                        new Animation(Animation.Type.SMOOTH, 1),
-                        null);
-                checkCoords = true;
-            }
+
         }catch (Exception e){
             e.printStackTrace();
 
@@ -144,7 +138,7 @@ public class MainScreen extends AppCompatActivity implements LocationListener {
         };
 
         thread.start();
-        textView_location = findViewById(R.id.text_location);
+//        textView_location = findViewById(R.id.text_location);
 
         //Runtime permissions
         if (ContextCompat.checkSelfPermission(MainScreen.this, Manifest.permission.ACCESS_FINE_LOCATION)
