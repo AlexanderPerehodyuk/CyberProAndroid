@@ -1,33 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
-
-
+    android:layout_height="match_parent">
 
     <LinearLayout
 
         android:id="@+id/app"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="vertical"
-        android:gravity = "center"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
 
             android:layout_width="wrap_content"
             android:layout_height="250dp"
-            app:srcCompat="@drawable/visibility_78432"></ImageView>
+            app:srcCompat="@drawable/visibility_78432" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/app_name"
-            android:textSize="36sp"></TextView>
+            android:textSize="36sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -41,13 +37,13 @@
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
-            app:srcCompat="@drawable/add_problem_icon"></ImageView>
+            app:srcCompat="@drawable/add_problem_icon" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/add_problem"
-            android:textSize="30sp"></TextView>
+            android:textSize="30sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -55,20 +51,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/add_problem_ll"
-        >
+        app:layout_constraintTop_toBottomOf="@id/add_problem_ll">
 
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
-            app:srcCompat="@drawable/png_map_icon"></ImageView>
+            app:srcCompat="@drawable/png_map_icon" />
 
         <TextView
             android:id="@+id/map_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/map"
-            android:textSize="30sp"></TextView>
+            android:textSize="30sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -76,17 +71,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/map_ll"
-        >
+        app:layout_constraintTop_toBottomOf="@+id/map_ll">
+
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
-            app:srcCompat="@drawable/list_icon"></ImageView>
+            app:srcCompat="@drawable/list_icon" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/problems_list"
-            android:textSize="30sp"></TextView>
+            android:textSize="30sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -94,24 +90,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/problem_ll"
-        >
+        app:layout_constraintTop_toBottomOf="@+id/problem_ll">
+
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
-            app:srcCompat="@drawable/list_icon"></ImageView>
+            app:srcCompat="@drawable/list_icon" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/my_problems"
-            android:textSize="30sp"></TextView>
+            android:textSize="30sp" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/text_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
