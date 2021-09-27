@@ -1,7 +1,6 @@
 package com.example.screens;
 
 
-
 import static com.example.screens.MainScreen.latitude;
 import static com.example.screens.MainScreen.longitude;
 
@@ -51,12 +50,16 @@ import com.yandex.mapkit.map.GeoObjectSelectionMetadata;
 import com.yandex.mapkit.map.IconStyle;
 import com.yandex.mapkit.map.InputListener;
 import com.yandex.mapkit.map.Map;
+import com.yandex.mapkit.map.MapObjectCollection;
+import com.yandex.mapkit.map.MapObjectTapListener;
+import com.yandex.mapkit.map.PlacemarkMapObject;
 import com.yandex.mapkit.map.RotationType;
 import com.yandex.mapkit.mapview.MapView;
-import com.yandex.mapkit.places.panorama.IconMarker;
+//import com.yandex.mapkit.places.panorama.IconMarker;
 import com.yandex.mapkit.user_location.UserLocationLayer;
 import com.yandex.mapkit.user_location.UserLocationObjectListener;
 import com.yandex.mapkit.user_location.UserLocationView;
+import com.yandex.runtime.image.AnimatedImageProvider;
 import com.yandex.runtime.image.ImageProvider;
 
 import java.util.ArrayList;
@@ -65,6 +68,7 @@ import java.util.Objects;
 public class MapScreen extends AppCompatActivity implements GeoObjectTapListener, UserLocationObjectListener {
     public int size_place = 10;
     public int size_text = 10;
+    private Object data;
     Button m0rder;
     TextView mITemSelected;
     String[] listItems;
@@ -73,11 +77,11 @@ public class MapScreen extends AppCompatActivity implements GeoObjectTapListener
     static MapView mapview;
     private UserLocationLayer userLocationLayer;
     ImageView imageView, findYourLocationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-
 
 
         setContentView(R.layout.activity_main);
@@ -90,7 +94,7 @@ public class MapScreen extends AppCompatActivity implements GeoObjectTapListener
 // рисуем текст на канвасе аналогично примеру выше
 
 
-        mapview = (MapView)findViewById(R.id.mapview); // находим нашу карту в loyout
+        mapview = (MapView) findViewById(R.id.mapview); // находим нашу карту в loyout
         mapview.getMap().move( // при запуске приложения переносимя на координаты которые прописаны в Point, в дальнейшем вместо них будут переменные для местоположения
                 new CameraPosition(new com.yandex.mapkit.geometry.Point(latitude, longitude), 16.0f, 0.0f, 0.0f),
                 new Animation(Animation.Type.SMOOTH, 1),
@@ -108,8 +112,8 @@ public class MapScreen extends AppCompatActivity implements GeoObjectTapListener
                         new CameraPosition(new com.yandex.mapkit.geometry.Point(latitude, longitude), 16.0f, 0.0f, 0.0f),
                         new Animation(Animation.Type.SMOOTH, 1),
                         null);
-                        mapview.getMap().getMapObjects().addPlacemark(new com.yandex.mapkit.geometry.Point(latitude, longitude));
-//                        mapview.getMap().getMapObjects().add);
+
+                        mapview.getMap().getMapObjects().addPlacemark(new com.yandex.mapkit.geometry.Point(latitude, longitude), ImageProvider.fromResource(getBaseContext(), R.drawable.problem));
             }
         });
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -134,19 +138,18 @@ public class MapScreen extends AppCompatActivity implements GeoObjectTapListener
         checkedItems = new boolean[listItems.length];
 
 
-
         m0rder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder mBuilder  = new AlertDialog.Builder(MapScreen.this);
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(MapScreen.this);
                 mBuilder.setTitle("Выберите проблему");
                 mBuilder.setMultiChoiceItems(listItems, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int position, boolean isChecked) {
 
-                        if(isChecked){
+                        if (isChecked) {
                             mUserItems.add(position);
-                        }else{
+                        } else {
                             mUserItems.remove((Integer.valueOf(position)));
                         }
                     }
@@ -156,7 +159,7 @@ public class MapScreen extends AppCompatActivity implements GeoObjectTapListener
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String item = "";
-                        for(int i = 0; i < mUserItems.size(); i++){
+                        for (int i = 0; i < mUserItems.size(); i++) {
                             item = item + listItems[mUserItems.get(i)];
                             if (i != mUserItems.size() - 1) {
                                 item = item + ", ";
@@ -174,7 +177,7 @@ public class MapScreen extends AppCompatActivity implements GeoObjectTapListener
                 mBuilder.setNeutralButton("Очистить всё", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        for (int i = 0; i < checkedItems.length; i++){
+                        for (int i = 0; i < checkedItems.length; i++) {
                             checkedItems[i] = false;
                             mUserItems.clear();
                             mITemSelected.setText("");
@@ -187,7 +190,7 @@ public class MapScreen extends AppCompatActivity implements GeoObjectTapListener
         });
     }
 
-//    public Bitmap drawSimpleBitmap(String number) {
+    //    public Bitmap drawSimpleBitmap(String number) {
 //        int picSize = size_place;
 //        Bitmap bitmap = Bitmap.createBitmap(picSize, picSize, Bitmap.Config.ARGB_8888);
 //        Canvas canvas = new Canvas(bitmap);
@@ -241,8 +244,8 @@ public class MapScreen extends AppCompatActivity implements GeoObjectTapListener
     public void onObjectAdded(@NonNull UserLocationView userLocationView) {
         userLocationLayer.setAnchor(
 
-                new PointF((float)(mapview.getWidth() * 0.5), (float)(mapview.getHeight() * 0.5)),
-                new PointF((float)(mapview.getWidth() * 0.5), (float)(mapview.getHeight() * 0.83)));
+                new PointF((float) (mapview.getWidth() * 0.5), (float) (mapview.getHeight() * 0.5)),
+                new PointF((float) (mapview.getWidth() * 0.5), (float) (mapview.getHeight() * 0.83)));
 
 //        userLocationView.getArrow().setIcon(ImageProvider.fromResource(
 //                this, R.drawable.user_place));
