@@ -95,6 +95,7 @@ public class MapScreen extends AppCompatActivity implements GeoObjectTapListener
 
 
         mapview = (MapView) findViewById(R.id.mapview); // находим нашу карту в loyout
+
         mapview.getMap().move( // при запуске приложения переносимя на координаты которые прописаны в Point, в дальнейшем вместо них будут переменные для местоположения
                 new CameraPosition(new com.yandex.mapkit.geometry.Point(latitude, longitude), 16.0f, 0.0f, 0.0f),
                 new Animation(Animation.Type.SMOOTH, 1),

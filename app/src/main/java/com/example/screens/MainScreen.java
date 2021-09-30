@@ -57,7 +57,7 @@ public class MainScreen extends AppCompatActivity implements LocationListener {
 
         try {
             locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,1000,10,MainScreen.this);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,1000,1,MainScreen.this);
 
 
         }catch (Exception e){
@@ -177,12 +177,14 @@ public class MainScreen extends AppCompatActivity implements LocationListener {
 //                getLocation();
 //            }
 //        });
-//        all_problem_list.setOnClickListener(new View.OnClickListener() {
-//            /*  Пока ничего, но потом должно кидать на список всех проблем */
-//            @Override
-//            public void onClick(View v) {
-//            }
-//        });
+        all_problem_list.setOnClickListener(new View.OnClickListener() {
+            /*  Пока ничего, но потом должно кидать на список всех проблем */
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainScreen.this, ProblemsActivity.class);
+                startActivity(intent);
+            }
+        });
 //        my_problem.setOnClickListener(new View.OnClickListener() {
 //            /*  Пока ничего, но потом должно кидать на список проблем добавленных пользователем */
 //            @Override
