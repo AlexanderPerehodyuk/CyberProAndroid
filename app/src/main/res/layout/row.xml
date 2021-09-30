@@ -5,29 +5,39 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="30dp"
+    android:gravity="center"
     >
 
     <TextView
         android:id="@+id/textViewName"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Проблема"
-        android:textSize="20dp"/>
+        android:textSize="30dp"/>
+
 
     <TextView
-        android:id="@+id/textView2"
+        android:textSize="30dp"
+        android:id="@+id/textViewDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Описание" />
+    <TextView
+        android:textSize="30dp"
+        android:id="@+id/textViewType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Тип" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageViewProblem"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:background="@drawable/add_problem_icon"
         />
     <TextView
-        android:id="@+id/textView3"
+        android:textSize="30dp"
+        android:id="@+id/textViewResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Результат" />
