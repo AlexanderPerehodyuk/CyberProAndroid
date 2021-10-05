@@ -2,16 +2,22 @@ package com.example.screens;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.Application;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -22,67 +28,40 @@ import com.yandex.mapkit.MapKitFactory;
 
 import java.util.List;
 
-public class MainScreen extends AppCompatActivity implements LocationListener {
+public class MainScreen extends AppCompatActivity {
+
     private LinearLayout add_problem;
     private LinearLayout map;
     private LinearLayout all_problem_list;
     private LinearLayout my_problem;
-    public static double latitude;
-    public static double longitude;
+
+
     //    TextView textView_location;
 //    boolean checkCoords = false;
 
-    final String MAPKIT_API_KEY = "61db36cd-2c66-4ba0-a8dc-686b6a0515b8";
-
-    @SuppressLint("MissingPermission")
-    public void getLocation() {
-        try {
-            LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 1, MainScreen.this);
+//    final String MAPKIT_API_KEY = "61db36cd-2c66-4ba0-a8dc-686b6a0515b8";
+//
 
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
-    @Override
-    public void onLocationChanged(Location location) {
-        latitude = location.getLatitude();
-        longitude = location.getLongitude();
-    }
 
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        registerActivityLifecycleCallbacks(new MyActivityLifecycleCallbacks());
         setContentView(R.layout.main_screen);
-        MapKitFactory.setApiKey(MAPKIT_API_KEY); // ключ апи в профиле у вовы он нужен для получения количества запроосов и д.р
-        MapKitFactory.initialize(this);
 
 
-        new Thread(() -> {
-            PermissionListener permissionlistener = new PermissionListener() { // создаёт окно для запроса
-                @Override
-                public void onPermissionGranted() { // если доступ предоставили то перезод на другую активность(сейчас переходим на MainScree где у нас главное меню)
-                    getLocation();
-                }
 
-                @Override
-                public void onPermissionDenied(List<String> deniedPermissions) { // если не дали разрешение то выход из приложения
-                    Toast.makeText(MainScreen.this, "Доступ запрещён\n", Toast.LENGTH_SHORT).show();
-                    finishAffinity();
-                }
+        MapKitFactory.setApiKey("61db36cd-2c66-4ba0-a8dc-686b6a0515b8");
+//        MapKitFactory.initialize(this);
 
-            };
-            TedPermission.create()
-                    .setPermissionListener(permissionlistener)
-                    .setDeniedMessage("Для использования приложения нужно предоставить доступ к вашему местоположению") // текст с вопросом
-                    .setPermissions(Manifest.permission.ACCESS_FINE_LOCATION) // как я понял, это разрешение передать в настройках местоположение для при проложения
-                    .check();
-        }).start();
-//        textView_location = findViewById(R.id.text_location);
 
-        //Runtime permissions
+
+
+
+
         if (ContextCompat.checkSelfPermission(MainScreen.this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MainScreen.this, new String[]{
@@ -94,7 +73,6 @@ public class MainScreen extends AppCompatActivity implements LocationListener {
         add_problem = findViewById(R.id.add_problem_ll);
         map = findViewById(R.id.map_ll);
         all_problem_list = findViewById(R.id.problem_ll);
-        my_problem = findViewById(R.id.mapview);
         add_problem.setOnClickListener(new View.OnClickListener() {
             /*  Пока ничего, но потом должно кидать на экран добваления проблемы */
             @Override
@@ -111,12 +89,7 @@ public class MainScreen extends AppCompatActivity implements LocationListener {
 
             }
         });
-        //        button_location.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                getLocation();
-//            }
-//        });
+
         all_problem_list.setOnClickListener(new View.OnClickListener() {
             /*  Пока ничего, но потом должно кидать на список всех проблем */
             @Override
@@ -125,15 +98,41 @@ public class MainScreen extends AppCompatActivity implements LocationListener {
                 startActivity(intent);
             }
         });
-//        my_problem.setOnClickListener(new View.OnClickListener() {
-//            /*  Пока ничего, но потом должно кидать на список проблем добавленных пользователем */
-//            @Override
-//            public void onClick(View v) {
-//            }
-//        });
-//    }
 
 
+    }
+    private static final class MyActivityLifecycleCallbacks implements Application.ActivityLifecycleCallbacks {
+
+        public void onActivityCreated(Activity activity, Bundle bundle) {
+            Log.e("","onActivityCreated:" + activity.getLocalClassName());
+        }
+
+        public void onActivityDestroyed(Activity activity) {
+            Log.e("","onActivityDestroyed:" + activity.getLocalClassName());
+//
+        }
+
+        public void onActivityPaused(Activity activity) {
+            Log.e("","onActivityPaused:" + activity.getLocalClassName());
+        }
+
+        public void onActivityResumed(Activity activity) {
+            Log.e("","onActivityResumed:" + activity.getLocalClassName());
+        }
+
+        public void onActivitySaveInstanceState(Activity activity,
+                                                Bundle outState) {
+            Log.e("","onActivitySaveInstanceState:" + activity.getLocalClassName());
+        }
+
+        public void onActivityStarted(Activity activity) {
+            Log.e("","onActivityStarted:" + activity.getLocalClassName());
+
+        }
+
+        public void onActivityStopped(Activity activity) {
+            Log.e("","onActivityStopped:" + activity.getLocalClassName());
+        }
     }
 
 }

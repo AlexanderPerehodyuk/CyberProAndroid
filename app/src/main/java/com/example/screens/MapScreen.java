@@ -1,8 +1,9 @@
 package com.example.screens;
 
 
-import static com.example.screens.MainScreen.latitude;
-import static com.example.screens.MainScreen.longitude;
+
+import static com.example.screens.SplashScreenActivity.latitude;
+import static com.example.screens.SplashScreenActivity.longitude;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -77,18 +78,24 @@ public class MapScreen extends AppCompatActivity implements GeoObjectTapListener
     static MapView mapview;
     private UserLocationLayer userLocationLayer;
     ImageView imageView, findYourLocationView;
-
+    final String MAPKIT_API_KEY = "61db36cd-2c66-4ba0-a8dc-686b6a0515b8";
+    public boolean checkInit = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
+//        MapKitFactory.setApiKey(MAPKIT_API_KEY); // ключ апи в профиле у вовы он нужен для получения количества запроосов и д.р
+//        MapKitFactory.initialize(getBaseContext());
+//
+
 
 
         setContentView(R.layout.activity_main);
 
         Bitmap source = BitmapFactory.decodeResource(getBaseContext().getResources(), R.drawable.problem);
 // создаем mutable копию, чтобы можно было рисовать поверх
-        Bitmap bitmap = source.copy(Bitmap.Config.ARGB_8888, true);
+//        Bitmap bitmap = source.copy(Bitmap.Config.ARGB_8888, true);
 // инициализируем канвас
 //        Canvas canvas = new Canvas(bitmap);
 // рисуем текст на канвасе аналогично примеру выше
@@ -194,20 +201,8 @@ public class MapScreen extends AppCompatActivity implements GeoObjectTapListener
     }
 
 
-    // отображение карты и остановка обработки карты, когда Activity с картой становится невидимым для пользователя
-    @Override
-    protected void onStop() {
-        super.onStop();
-        mapview.onStop();
-        MapKitFactory.getInstance().onStop();
-    }
+//     отображение карты и остановка обработки карты, когда Activity с картой становится невидимым для пользователя
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mapview.onStart();
-        MapKitFactory.getInstance().onStart();
-    }
 
 
     @Override
@@ -245,6 +240,22 @@ public class MapScreen extends AppCompatActivity implements GeoObjectTapListener
 
     @Override
     public void onObjectUpdated(@NonNull UserLocationView userLocationView, @NonNull ObjectEvent objectEvent) {
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mapview.onStop();
+        MapKitFactory.getInstance().onStop();
+        finish();
+    }
+
+    @Override
+    protected void onStart() {
+
+        super.onStart();
+        mapview.onStart();
+        MapKitFactory.getInstance().onStart();
+
     }
 }
 
