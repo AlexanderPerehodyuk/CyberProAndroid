@@ -1,21 +1,24 @@
 package com.example.screens;
 
+import static com.example.screens.LocationModification.latitude;
+import static com.example.screens.LocationModification.longitude;
+
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PointF;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.yandex.mapkit.Animation;
-import com.yandex.mapkit.MapKit;
 import com.yandex.mapkit.MapKitFactory;
-import com.yandex.mapkit.geometry.Point;
 import com.yandex.mapkit.layers.GeoObjectTapEvent;
 import com.yandex.mapkit.layers.GeoObjectTapListener;
 import com.yandex.mapkit.layers.ObjectEvent;
@@ -31,12 +34,12 @@ import java.util.ArrayList;
 
 public class MapScreen extends AppCompatActivity implements GeoObjectTapListener, UserLocationObjectListener {
     Button m0rder;
-    TextView mITemSelected;
     String[] listItems;
     boolean[] checkedItems;
     ArrayList<Integer> mUserItems = new ArrayList<>();
     static MapView mapview;
     private UserLocationLayer userLocationLayer;
+    ImageView imageView, findYourLocationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,40 +47,37 @@ public class MapScreen extends AppCompatActivity implements GeoObjectTapListener
         setContentView(R.layout.activity_main);
 
         mapview = findViewById(R.id.mapview); // находим нашу карту в loyout
-//      new PointF((float)(mapview.getWidth() * 0.5), (float)(mapview.getHeight() * 0.5)),
-//        while  (longitude != 0.0) {
-//                    mapview.getMap().move( // при запуске приложения переносимя на координаты которые прописаны в Point, в дальнейшем вместо них будут переменные для местоположения
-//                new CameraPosition(new com.yandex.mapkit.geometry.Point(latitude, longitude), 17.0f, 0.0f, 0.0f),
-//                new Animation(Animation.Type.SMOOTH, 1),
-//                null);
-//        }
-//        mapview.getMap().move( // при запуске приложения переносимя на координаты которые прописаны в Point, в дальнейшем вместо них будут переменные для местоположения
-//                new CameraPosition(new com.yandex.mapkit.geometry.Point(, longitude), 17.0f, 0.0f, 0.0f),
-//                new Animation(Animation.Type.SMOOTH, 1),
-//                null);
-//        Handler handler = new Handler();
-//        handler.postDelayed(new Runnable() {
-//            public void run() {
-//
-//        mapview.getMap().move( // при запуске приложения переносимя на координаты которые прописаны в Point, в дальнейшем вместо них будут переменные для местоположения
-//                new CameraPosition(new Point(latitude, longitude), 10.0f, 0.0f, 0.0f),
-//                new Animation(Animation.Type.SMOOTH, 1),
-//                null);
-//            }
-//        }, 9000); //specify the number of milliseconds
+
+        resetPos();
 
         mapview.getMap().addTapListener(this);
-        MapKit mapKit = MapKitFactory.getInstance();
-        userLocationLayer = mapKit.createUserLocationLayer(mapview.getMapWindow());
+        userLocationLayer = MapKitFactory.getInstance().createUserLocationLayer(mapview.getMapWindow());
+        imageView = findViewById(R.id.add_problem_view);
+        findYourLocationView = findViewById(R.id.findYourLocationView);
+        findYourLocationView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetPos();
+
+                mapview.getMap().getMapObjects().addPlacemark(new com.yandex.mapkit.geometry.Point(latitude, longitude),
+                        ImageProvider.fromResource(getBaseContext(), R.drawable.problem));
+            }
+        });
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
+                startActivity(intent);
+            }
+        });
+
         userLocationLayer.setVisible(true);
-//        userLocationLayer.setHeadingEnabled(true);
-//        userLocationLayer.setObjectListener(this);
+
         m0rder = findViewById(R.id.bntOrder);
-        mITemSelected = findViewById(R.id.tvItemSelected);
 
         listItems = getResources().getStringArray(R.array.problems_item);
         checkedItems = new boolean[listItems.length];
-//        moveCameraToPosition(Objects.requireNonNull(userLocationLayer.cameraPosition()).getTarget());
+
         m0rder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,7 +86,6 @@ public class MapScreen extends AppCompatActivity implements GeoObjectTapListener
                 mBuilder.setMultiChoiceItems(listItems, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int position, boolean isChecked) {
-
                         if (isChecked) {
                             mUserItems.add(position);
                         } else {
@@ -95,33 +94,17 @@ public class MapScreen extends AppCompatActivity implements GeoObjectTapListener
                     }
                 });
                 mBuilder.setCancelable(false);
-                mBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String item = "";
-                        for (int i = 0; i < mUserItems.size(); i++) {
-                            item = item + listItems[mUserItems.get(i)];
-                            if (i != mUserItems.size() - 1) {
-                                item = item + ", ";
-                            }
-                        }
-                        mITemSelected.setText(item);
-                    }
-                });
-                mBuilder.setNegativeButton("Отменить", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
+                mBuilder.setPositiveButton("OK", null);
+                mBuilder.setNegativeButton("Отменить", null);
                 mBuilder.setNeutralButton("Очистить всё", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         for (int i = 0; i < checkedItems.length; i++) {
                             checkedItems[i] = false;
                             mUserItems.clear();
-                            mITemSelected.setText("");
                         }
+                        AlertDialog mDialog = mBuilder.create();
+                        mDialog.show();
                     }
                 });
                 AlertDialog mDialog = mBuilder.create();
@@ -130,12 +113,36 @@ public class MapScreen extends AppCompatActivity implements GeoObjectTapListener
         });
     }
 
-    // отображение карты и остановка обработки карты, когда Activity с картой становится невидимым для пользователя
+    @Override
+    public boolean onObjectTap(@NonNull GeoObjectTapEvent geoObjectTapEvent) {
+        GeoObjectSelectionMetadata selectionMetadata = geoObjectTapEvent
+                .getGeoObject()
+                .getMetadataContainer()
+                .getItem(GeoObjectSelectionMetadata.class);
+
+        if (selectionMetadata != null) {
+            mapview.getMap().selectGeoObject(selectionMetadata.getId(), selectionMetadata.getLayerId());
+        }
+
+        return selectionMetadata != null;
+    }
+
+
+    @Override
+    public void onObjectAdded(@NonNull UserLocationView userLocationView) {
+        userLocationLayer.setAnchor(
+                new PointF((float) (mapview.getWidth() * 0.5), (float) (mapview.getHeight() * 0.5)),
+                new PointF((float) (mapview.getWidth() * 0.5), (float) (mapview.getHeight() * 0.83)));
+
+        userLocationView.getAccuracyCircle().setFillColor(Color.BLUE & 0x99ffffff);
+    }
+
     @Override
     protected void onStop() {
         super.onStop();
         mapview.onStop();
         MapKitFactory.getInstance().onStop();
+        finish();
     }
 
     @Override
@@ -145,62 +152,21 @@ public class MapScreen extends AppCompatActivity implements GeoObjectTapListener
         MapKitFactory.getInstance().onStart();
     }
 
-    @Override
-    public boolean onObjectTap(@NonNull GeoObjectTapEvent geoObjectTapEvent) {
-        final GeoObjectSelectionMetadata selectionMetadata = geoObjectTapEvent
-                .getGeoObject()
-                .getMetadataContainer()
-                .getItem(GeoObjectSelectionMetadata.class);
-
-        if (selectionMetadata != null) {
-            mapview.getMap().selectGeoObject(selectionMetadata.getId(), selectionMetadata.getLayerId());
-
-        }
-
-        return selectionMetadata != null;
-    }
-
-    @Override
-    public void onObjectAdded(@NonNull UserLocationView userLocationView) {
-        userLocationLayer.setAnchor(
-                new PointF((float) (mapview.getWidth() * 0.5), (float) (mapview.getHeight() * 0.5)),
-                new PointF((float) (mapview.getWidth() * 0.5), (float) (mapview.getHeight() * 0.83)));
-
-        userLocationView.getArrow().setIcon(ImageProvider.fromResource(
-                this, R.drawable.user_place));
-
-//        CompositeIcon pinIcon = userLocationView.getPin().useCompositeIcon();
-//
-//
-//
-//        pinIcon.setIcon(
-//                "pin",
-//                ImageProvider.fromResource(this, R.drawable.search_result),
-//                new IconStyle().setAnchor(new PointF(0.5f, 0.5f))
-//                        .setRotationType(RotationType.ROTATE)
-//                        .setZIndex(1f)
-//                        .setScale(0.5f)
-//        );
-
-        userLocationView.getAccuracyCircle().setFillColor(Color.BLUE & 0x99ffffff);
-    }
-
-    public void moveCameraToPosition(@NonNull Point target) {
-        mapview.getMap().move(
-                new CameraPosition(target, 15.0f, 0.0f, 0.0f),
-                new Animation(Animation.Type.SMOOTH, 2), null);
+    private void resetPos() {
+        mapview.getMap().move( // при запуске приложения переносимя на координаты которые прописаны в Point, в дальнейшем вместо них будут переменные для местоположения
+                new CameraPosition(new com.yandex.mapkit.geometry.Point(latitude, longitude), 16.0f, 0.0f, 0.0f),
+                new Animation(Animation.Type.SMOOTH, 1),
+                null);
     }
 
     @Override
     public void onObjectRemoved(@NonNull UserLocationView userLocationView) {
-
     }
 
     @Override
     public void onObjectUpdated(@NonNull UserLocationView userLocationView, @NonNull ObjectEvent objectEvent) {
     }
 }
-
 
 
 
