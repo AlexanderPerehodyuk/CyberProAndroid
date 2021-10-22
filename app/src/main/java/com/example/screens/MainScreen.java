@@ -13,7 +13,7 @@ import androidx.core.content.ContextCompat;
 
 import com.yandex.mapkit.MapKitFactory;
 
-public class MainScreen extends AppCompatActivity {
+public class MainScreen extends BaseActivity {
     private LinearLayout add_problem;
     private LinearLayout map;
     private LinearLayout all_problem_list;
