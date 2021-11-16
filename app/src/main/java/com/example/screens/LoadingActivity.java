@@ -1,5 +1,7 @@
 package com.example.screens;
 
+import static com.example.screens.RegisterActivity.personalData;
+
 import android.Manifest;
 import android.os.Bundle;
 
@@ -13,7 +15,10 @@ public class LoadingActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ThreadPool.post(() -> {
+        Service.post(() -> {
+            Service.init(this);
+            personalData = Service.readFromFile("DATA");
+
             PermissionListener permissionlistener = new PermissionListener() { // создаёт окно для запроса
                 @Override
                 public void onPermissionGranted() {

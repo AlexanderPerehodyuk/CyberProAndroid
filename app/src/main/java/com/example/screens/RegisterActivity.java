@@ -1,9 +1,14 @@
 package com.example.screens;
 
+import static com.example.screens.Service.print;
+import static com.example.screens.Service.sleep;
+import static com.example.screens.Service.writeToFile;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import okhttp3.MediaType;
@@ -13,68 +18,147 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class RegisterActivity extends BaseActivity {
+    private final OkHttpClient client = new OkHttpClient();
+    private JSONArray jsonArray;
+    public static String personalData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+
+        if (personalData == null) {
+            setContentView(R.layout.activity_register);
+
+            Service.post(() -> {
+                Response response = null;
+
+                try {
+                    response = client.newCall(new Request.Builder()
+                            .url("http://people-eye.herokuapp.com/api/all_users")
+                            .get()
+                            .build()).execute();
+
+                    jsonArray = (JSONArray) (new JSONObject(response.body().string()).get("users"));
+                } catch (Exception e) {
+                    print(e);
+                }
+
+                closeResponse(response);
+            });
+
+            return;
+        }
+
+        setContentView(R.layout.activity_login);
     }
 
     public void register(View view) {
+        String name = clearSpacebars(findViewById(R.id.editName));
+        String surname = clearSpacebars(findViewById(R.id.editSurname));
         String mail = clearSpacebars(findViewById(R.id.editMail));
         String password = getText(findViewById(R.id.editPassword));
         String passwordAgain = getText(findViewById(R.id.editPasswordAgain));
 
-        ThreadPool.post(() -> {
-            if (password.equals(passwordAgain)) {
-                if (mail.contains("@")) {
-                    try {
-                        OkHttpClient client = new OkHttpClient();
-                        JSONObject jsonObject = new JSONObject();
-                        jsonObject.put("email", mail);
-                        jsonObject.put("password", password);
-                        jsonObject.put("name", clearSpacebars(findViewById(R.id.editName)));
-                        jsonObject.put("surname", clearSpacebars(findViewById(R.id.editSurname)));
-
-                        Response response = client.newCall(new Request.Builder()
-                                .url("http://people-eye.herokuapp.com/api/register")
-                                .post(RequestBody.create(jsonObject.toString(), MediaType.parse("application/json; charset=utf-8")))
-                                .build()).execute();
-                        JSONObject answer = new JSONObject(response.body().string());
-                        response.close();
-
-                        if (answer.has("id")) {
-                            makeToast("Регистрация успешна!");
-                            startActivity(MainScreen.class);
-                        } else {
-                            makeToast(answer.getString("error"));
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    makeToast("Некорректный адрес электронной почты!");
-                }
-            } else {
-                makeToast("Пароли не совпадают!");
+        Service.post(() -> {
+            while (jsonArray == null) {
+                sleep(250);
             }
+
+            Response response = null;
+            boolean alreadyRegister = false;
+            int len = jsonArray.length();
+
+            if (name.length() == 0) {
+                makeToast("Введите ваше имя!");
+                return;
+            }
+            if (surname.length() == 0) {
+                makeToast("Введите вашу фамилию!");
+                return;
+            }
+            if (mail.length() == 0 || !mail.contains("@")) {
+                makeToast("Некорректный адрес электронной почты!");
+                return;
+            }
+            if (password.length() == 0) {
+                makeToast("Введите пароль!");
+                return;
+            }
+            if (!password.equals(passwordAgain)) {
+                makeToast("Пароли не совпадают!");
+                return;
+            }
+
+            try {
+                for (int i = 0; i < len; i++) {
+                    if (jsonArray.getString(i).equals(mail)) {
+                        alreadyRegister = true;
+                        break;
+                    }
+                }
+
+                if (alreadyRegister) {
+                    makeToast("Данная почта уже зарегистрирована!!");
+                    return;
+                }
+
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("name", name);
+                jsonObject.put("surname", surname);
+                jsonObject.put("email", mail);
+                jsonObject.put("password", password);
+
+                response = client.newCall(new Request.Builder()
+                        .url("http://people-eye.herokuapp.com/api/register")
+                        .post(RequestBody.create(jsonObject.toString(), MediaType.parse("application/json; charset=utf-8")))
+                        .build()).execute();
+
+                jsonObject = new JSONObject(response.body().string());
+
+                if (jsonObject.has("id")) {
+                    makeToast("Регистрация успешна!");
+
+                    writeToFile("DATA", name + " " + surname + " " + mail + " " + password);
+
+                    startActivity(MainScreen.class);
+                } else {
+                    makeToast(jsonObject.getString("Ошибка при обращении к серверу"));
+                }
+            } catch (Exception e) {
+                print(e);
+            }
+
+            closeResponse(response);
         });
     }
 
     private String clearSpacebars(EditText editText) {
-        String[] list = getText(editText).split(" ");
-        StringBuilder stringBuilder = new StringBuilder();
+        String message = getText(editText);
 
-        for (String s : list) {
-            if (!s.equals("")) {
-                stringBuilder.append(s);
-                stringBuilder.append(" ");
+        if (message.length() != 0) {
+            String[] list = message.split(" ");
+            StringBuilder stringBuilder = new StringBuilder();
+
+            for (String s : list) {
+                if (!s.equals("")) {
+                    stringBuilder.append(s);
+                    stringBuilder.append(" ");
+                }
             }
+
+            return stringBuilder.deleteCharAt(stringBuilder.length() - 1).toString();
         }
 
-        return stringBuilder.deleteCharAt(stringBuilder.length() - 1).toString();
+        return "";
     }
 
     private String getText(EditText editText) {
         return editText.getText().toString();
+    }
+
+    private void closeResponse(Response response) {
+        if (response != null) {
+            response.close();
+        }
     }
 }
