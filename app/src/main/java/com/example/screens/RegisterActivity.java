@@ -1,12 +1,14 @@
 package com.example.screens;
 
-import static com.example.screens.Service.print;
-import static com.example.screens.Service.sleep;
-import static com.example.screens.Service.writeToFile;
+import static com.example.screens.service.Service.print;
+import static com.example.screens.service.Service.writeToFile;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+
+import com.example.screens.service.Biometrics;
+import com.example.screens.service.Service;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -29,27 +31,32 @@ public class RegisterActivity extends BaseActivity {
         if (personalData == null) {
             setContentView(R.layout.activity_register);
 
-            Service.post(() -> {
-                Response response = null;
-
-                try {
-                    response = client.newCall(new Request.Builder()
-                            .url("http://people-eye.herokuapp.com/api/all_users")
-                            .get()
-                            .build()).execute();
-
-                    jsonArray = (JSONArray) (new JSONObject(response.body().string()).get("users"));
-                } catch (Exception e) {
-                    print(e);
-                }
-
-                closeResponse(response);
-            });
+            getAllUsers();
 
             return;
         }
 
         setContentView(R.layout.activity_login);
+    }
+
+    public void getAllUsers() {
+        Service.post(() -> {
+            Response response = null;
+
+            try {
+                response = client.newCall(new Request.Builder()
+                        .url("http://people-eye.herokuapp.com/api/all_users")
+                        .get()
+                        .build()).execute();
+
+                jsonArray = (JSONArray) (new JSONObject(response.body().string()).get("users"));
+            } catch (Exception e) {
+                print(e);
+                getAllUsers();
+            }
+
+            closeResponse(response);
+        });
     }
 
     public void register(View view) {
@@ -61,7 +68,7 @@ public class RegisterActivity extends BaseActivity {
 
         Service.post(() -> {
             while (jsonArray == null) {
-                sleep(250);
+                Thread.yield();
             }
 
             Response response = null;
@@ -98,7 +105,7 @@ public class RegisterActivity extends BaseActivity {
                 }
 
                 if (alreadyRegister) {
-                    makeToast("Данная почта уже зарегистрирована!!");
+                    makeToast("Данная почта уже зарегистрирована!");
                     return;
                 }
 
@@ -116,11 +123,13 @@ public class RegisterActivity extends BaseActivity {
                 jsonObject = new JSONObject(response.body().string());
 
                 if (jsonObject.has("id")) {
-                    makeToast("Регистрация успешна!");
+                    new Biometrics(() -> {
+                        makeToast("Регистрация успешна!");
 
-                    writeToFile("DATA", name + " " + surname + " " + mail + " " + password);
+                        writeToFile("DATA", name + " " + surname + " " + mail + " " + password);
 
-                    startActivity(MainScreen.class);
+                        startActivity(MainScreen.class);
+                    }).start();
                 } else {
                     makeToast(jsonObject.getString("Ошибка при обращении к серверу"));
                 }

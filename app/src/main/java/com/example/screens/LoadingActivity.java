@@ -5,6 +5,7 @@ import static com.example.screens.RegisterActivity.personalData;
 import android.Manifest;
 import android.os.Bundle;
 
+import com.example.screens.service.Service;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
 
@@ -15,8 +16,8 @@ public class LoadingActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Service.init(this);
         Service.post(() -> {
-            Service.init(this);
             personalData = Service.readFromFile("DATA");
 
             PermissionListener permissionlistener = new PermissionListener() { // создаёт окно для запроса
