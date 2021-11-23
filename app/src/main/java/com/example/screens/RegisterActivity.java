@@ -1,14 +1,12 @@
 package com.example.screens;
 
-import static com.example.screens.service.Service.print;
-import static com.example.screens.service.Service.writeToFile;
+import static com.example.screens.Service.print;
+import static com.example.screens.Service.sleep;
+import static com.example.screens.Service.writeToFile;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-
-import com.example.screens.service.Biometrics;
-import com.example.screens.service.Service;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -28,18 +26,9 @@ public class RegisterActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (personalData == null) {
-            setContentView(R.layout.activity_register);
+//        if (personalData == null) {
+        setContentView(R.layout.activity_register);
 
-            getAllUsers();
-
-            return;
-        }
-
-        setContentView(R.layout.activity_login);
-    }
-
-    public void getAllUsers() {
         Service.post(() -> {
             Response response = null;
 
@@ -52,11 +41,15 @@ public class RegisterActivity extends BaseActivity {
                 jsonArray = (JSONArray) (new JSONObject(response.body().string()).get("users"));
             } catch (Exception e) {
                 print(e);
-                getAllUsers();
             }
 
             closeResponse(response);
         });
+//
+//            return;
+//        }
+//
+//        setContentView(R.layout.activity_login);
     }
 
     public void register(View view) {
@@ -68,12 +61,10 @@ public class RegisterActivity extends BaseActivity {
 
         Service.post(() -> {
             while (jsonArray == null) {
-                Thread.yield();
+                sleep(250);
             }
 
             Response response = null;
-            boolean alreadyRegister = false;
-            int len = jsonArray.length();
 
             if (name.length() == 0) {
                 makeToast("Введите ваше имя!");
@@ -97,16 +88,11 @@ public class RegisterActivity extends BaseActivity {
             }
 
             try {
-                for (int i = 0; i < len; i++) {
+                for (int i = 0; i < jsonArray.length(); i++) {
                     if (jsonArray.getString(i).equals(mail)) {
-                        alreadyRegister = true;
-                        break;
+                        makeToast("Данная почта уже зарегистрирована!");
+                        return;
                     }
-                }
-
-                if (alreadyRegister) {
-                    makeToast("Данная почта уже зарегистрирована!");
-                    return;
                 }
 
                 JSONObject jsonObject = new JSONObject();
@@ -123,15 +109,14 @@ public class RegisterActivity extends BaseActivity {
                 jsonObject = new JSONObject(response.body().string());
 
                 if (jsonObject.has("id")) {
-                    new Biometrics(() -> {
-                        makeToast("Регистрация успешна!");
+                    makeToast("Регистрация успешна!");
 
-                        writeToFile("DATA", name + " " + surname + " " + mail + " " + password);
+                    writeToFile("DATA", name + " " + surname + " " + mail
+                            + " " + password + " " + jsonObject.get("id"));
 
-                        startActivity(MainScreen.class);
-                    }).start();
+                    startActivity(MainScreen.class);
                 } else {
-                    makeToast(jsonObject.getString("Ошибка при обращении к серверу"));
+                    makeToast("Ошибка при обращении к серверу");
                 }
             } catch (Exception e) {
                 print(e);
