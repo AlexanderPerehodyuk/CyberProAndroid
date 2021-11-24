@@ -17,6 +17,7 @@ public class RegisterActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        startActivity(MainScreen.class);
     }
 
     public void register(View view) {

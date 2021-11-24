@@ -60,6 +60,14 @@ public class MainScreen extends BaseActivity {
                 startActivity(intent);
             }
         });
+        add_problem.setOnClickListener(new View.OnClickListener() {
+            /*  Пока ничего, но потом должно кидать на список всех проблем */
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainScreen.this, AddProblem.class);
+                startActivity(intent);
+            }
+        });
     }
 }
 
