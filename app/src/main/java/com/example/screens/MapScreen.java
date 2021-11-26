@@ -66,7 +66,7 @@ public class MapScreen extends AppCompatActivity implements GeoObjectTapListener
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
+                Intent intent = new Intent(MapScreen.this, AddProblem.class);
                 startActivity(intent);
             }
         });

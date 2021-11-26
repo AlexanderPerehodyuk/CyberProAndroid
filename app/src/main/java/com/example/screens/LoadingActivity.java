@@ -1,7 +1,5 @@
 package com.example.screens;
 
-import static com.example.screens.RegisterActivity.personalData;
-
 import android.Manifest;
 import android.os.Bundle;
 
@@ -15,21 +13,11 @@ public class LoadingActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Service.post(() -> {
-            Service.init(this);
-            personalData = Service.readFromFile("DATA");
-
-            Runnable runnable;
-            if (personalData == null) {
-                runnable = () -> startActivity(RegisterActivity.class);
-            } else {
-                runnable = () -> startActivity(MainScreen.class);
-            }
-
+        ThreadPool.post(() -> {
             PermissionListener permissionlistener = new PermissionListener() { // создаёт окно для запроса
                 @Override
                 public void onPermissionGranted() {
-                    new LocationModification(getApplicationContext(), runnable);
+                    new LocationModification(getApplicationContext(), () -> startActivity(RegisterActivity.class));
                 }
 
                 @Override

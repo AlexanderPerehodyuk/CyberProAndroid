@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -57,6 +56,14 @@ public class MainScreen extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainScreen.this, ProblemsActivity.class);
+                startActivity(intent);
+            }
+        });
+        add_problem.setOnClickListener(new View.OnClickListener() {
+            /*  Пока ничего, но потом должно кидать на список всех проблем */
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainScreen.this, AddProblem.class);
                 startActivity(intent);
             }
         });
