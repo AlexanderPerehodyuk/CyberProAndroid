@@ -3,8 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Mihalis/Desktop/Geek_Brains/ANDROID/CyberProAndroid-getImage/app/src/main/res/layout/activity_add_problem.xml" value="0.264" />
-        <entry key="..\:/Users/Mihalis/Desktop/Geek_Brains/ANDROID/CyberProAndroid-getImage/app/src/main/res/layout/row.xml" value="0.1793478260869565" />
+        <entry key="..\:/Users/Mihalis/Desktop/Geek_Brains/ANDROID/CyberProAndroid/app/src/main/res/layout/activity_add_problem.xml" value="0.264" />
+        <entry key="..\:/Users/Mihalis/Desktop/Geek_Brains/ANDROID/CyberProAndroid/app/src/main/res/layout/activity_register.xml" value="0.19021739130434784" />
+        <entry key="..\:/Users/Mihalis/Desktop/Geek_Brains/ANDROID/CyberProAndroid/app/src/main/res/layout/main_screen.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/muhor/Desktop/Geek_Brains/ANDROID/CyberProAndroid/app/src/main/res/layout/activity_main.xml" value="0.4633920296570899" />
         <entry key="..\:/Users/muhor/Desktop/Geek_Brains/ANDROID/CyberProAndroid/app/src/main/res/layout/main_screen.xml" value="0.1" />
         <entry key="..\:/Users/muhortov/Desktop/CyberProAndroid/app/src/main/res/layout/activity_main.xml" value="0.48922863099374564" />
@@ -12,6 +13,7 @@
         <entry key="..\:/Users/muhortov/Desktop/PROJECTS/CyberProAndroid/app/src/main/res/drawable/ic_baseline_place_24.xml" value="0.3828125" />
         <entry key="..\:/Users/muhortov/Desktop/PROJECTS/CyberProAndroid/app/src/main/res/drawable/splashs_creen.xml" value="0.3828125" />
         <entry key="..\:/Users/muhortov/Desktop/PROJECTS/CyberProAndroid/app/src/main/res/drawable/splashs_screen.xml" value="0.3828125" />
+        <entry key="..\:/Users/muhortov/Desktop/PROJECTS/CyberProAndroid/app/src/main/res/layout/activity_login.xml" value="0.26268115942028986" />
         <entry key="..\:/Users/muhortov/Desktop/PROJECTS/CyberProAndroid/app/src/main/res/layout/activity_problems.xml" value="0.28940217391304346" />
         <entry key="..\:/Users/muhortov/Desktop/PROJECTS/CyberProAndroid/app/src/main/res/layout/activity_register.xml" value="0.28306159420289856" />
         <entry key="..\:/Users/muhortov/Desktop/PROJECTS/CyberProAndroid/app/src/main/res/layout/main_screen.xml" value="0.21467391304347827" />
@@ -22,7 +24,6 @@
         <entry key="..\:/Users/razivenkov/StudioProjects/CyberProAndroid/app/src/main/res/layout/main_screen.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/razivenkov/StudioProjects/CyberProAndroid/app/src/main/res/layout/row.xml" value="0.28940217391304346" />
         <entry key="..\:/Users/vrazz/AndroidStudioProjects/CyberProAndroid/app/src/main/res/drawable/splashs_creen.xml" value="0.35185185185185186" />
-        <entry key="..\:/Users/vrazz/AndroidStudioProjects/CyberProAndroid/app/src/main/res/layout/activity_add_problem.xml" value="0.25" />
         <entry key="..\:/Users/vrazz/AndroidStudioProjects/CyberProAndroid/app/src/main/res/layout/activity_main.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/vrazz/AndroidStudioProjects/CyberProAndroid/app/src/main/res/layout/main_screen.xml" value="0.33" />
       </map>

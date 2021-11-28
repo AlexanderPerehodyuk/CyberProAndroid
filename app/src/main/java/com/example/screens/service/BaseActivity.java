@@ -1,11 +1,11 @@
-package com.example.screens;
+package com.example.screens.service;
 
 import android.content.Intent;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
     public void startActivity(Class<?> cls) {
         runOnUiThread(() -> {
             Intent intent = new Intent(getApplicationContext(), cls);

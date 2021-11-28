@@ -2,6 +2,8 @@ package com.example.screens;
 
 import static android.content.Context.LOCATION_SERVICE;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
+import static com.example.screens.service.DATA.latitude;
+import static com.example.screens.service.DATA.longitude;
 
 import android.Manifest;
 import android.content.Context;
@@ -15,9 +17,6 @@ import androidx.core.app.ActivityCompat;
 public class LocationModification implements LocationListener {
     private final Runnable runnable;
     private boolean start;
-
-    public static double latitude;
-    public static double longitude;
 
     public LocationModification(Context context, Runnable onFirstRun) {
         this.runnable = onFirstRun;

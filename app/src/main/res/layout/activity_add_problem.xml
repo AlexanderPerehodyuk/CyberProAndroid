@@ -15,7 +15,7 @@
         android:src="@drawable/add_problem_icon" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonChooseImg"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -23,19 +23,26 @@
         android:text="Выбрать изображение" />
 
     <EditText
-        android:id="@+id/textView"
+        android:id="@+id/editTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Описание" />
+        android:gravity="center"
+        android:hint="Название (Наводнение, Загрязнение...)"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:maxLength="50" />
 
     <EditText
-        android:id="@+id/textAdress"
+        android:id="@+id/editDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Адрес" />
+        android:gravity="center"
+        android:hint="Описание"
+        android:imeOptions="actionDone"
+        android:inputType="text" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/buttonPost"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Отправить" />

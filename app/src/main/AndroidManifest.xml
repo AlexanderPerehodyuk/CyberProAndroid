@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.screens">
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -18,11 +18,6 @@
         android:theme="@style/Theme.Trans"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".AddProblem"
-            android:exported="true"
-            android:label="@string/title_activity_add_problem"
-            android:theme="@style/Theme.Trans.NoActionBar" />
-        <activity
             android:name=".LoadingActivity"
             android:exported="true"
             android:theme="@style/SplashTheme">
@@ -32,6 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ProblemsActivity"
             android:exported="true"
@@ -46,8 +42,11 @@
             android:exported="true"
             android:screenOrientation="fullSensor" />
         <activity
+            android:name=".AddProblem"
+            android:exported="true"
+            android:screenOrientation="fullSensor" />
+        <activity
             android:name=".MapScreen"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
     </application>
-
 </manifest>
