@@ -9,8 +9,8 @@
     <com.yandex.mapkit.mapview.MapView
         android:id="@+id/mapview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </com.yandex.mapkit.mapview.MapView>
+        android:layout_height="match_parent"></com.yandex.mapkit.mapview.MapView>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,27 +18,29 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:background="@color/teal_200"
-            android:gravity="left"
+
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:background="@drawable/bg_app"
+            android:gravity="left"
             android:orientation="horizontal">
 
             <ImageView
-
+                style=""
                 android:id="@+id/add_problem_view"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                app:srcCompat="@drawable/add_problem_icon" />
-            <Button
+                app:srcCompat="@drawable/ic_baseline_add_circle_outline_24" />
 
+            <Button
                 android:id="@+id/bntOrder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Выбрать проблемы" />
 
             <ImageView
+
                 android:id="@+id/findYourLocationView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -57,9 +59,6 @@
             <!--                    android:layout_width="wrap_content"-->
             <!--                    android:layout_height="wrap_content"-->
             <!--                    android:layout_weight="1" />-->
-
-
-
 
 
             <!--                <Spinner-->

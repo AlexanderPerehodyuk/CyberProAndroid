@@ -18,16 +18,22 @@
         android:theme="@style/Theme.Trans"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".LoadingActivity"
+            android:name=".EntranceActivity"
             android:exported="true"
-            android:theme="@style/SplashTheme">
+            android:label="@string/title_activity_entrance"
+            android:theme="@style/Theme.Trans.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".LoadingActivity"
+            android:exported="true"
+            android:theme="@style/SplashTheme">
 
+        </activity>
         <activity
             android:name=".ProblemsActivity"
             android:exported="true"
@@ -49,4 +55,5 @@
             android:name=".MapScreen"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
     </application>
+
 </manifest>
