@@ -15,6 +15,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void makeToast(Object object) {
-        runOnUiThread(() -> Toast.makeText(getApplicationContext(), object.toString(), Toast.LENGTH_LONG).show());
+        runOnUiThread(() -> Toast.makeText(this, object.toString(), Toast.LENGTH_LONG).show());
+    }
+
+    public void makeFastToast(Object object) {
+        runOnUiThread(() -> Toast.makeText(this, object.toString(), Toast.LENGTH_SHORT).show());
     }
 }

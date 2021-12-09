@@ -11,6 +11,7 @@ import java.util.concurrent.Executors;
 
 public final class Service {
     private static final ExecutorService threadPool = Executors.newWorkStealingPool();
+    private static final StringBuilder stringBuilder = new StringBuilder();
     public static BaseActivity activity;
 
     public static void init(BaseActivity baseActivity) {
@@ -30,11 +31,15 @@ public final class Service {
         }
     }
 
-    public static void print(Object o) {
+    public static void print(Object... objects) {
         try {
-            Log.e("Глаз Бога", o.toString());
-        } catch (Exception e) {
-            print(e);
+            for (Object o : objects) {
+                stringBuilder.append(o).append(" ");
+            }
+            Log.e("Глаз Бога", stringBuilder.deleteCharAt(stringBuilder.length() - 1).toString());
+            stringBuilder.setLength(0);
+        } catch (Exception exception) {
+            print("Error When Log:", exception);
         }
     }
 
@@ -46,7 +51,7 @@ public final class Service {
             writer_str.write(content);
             writer_str.close();
         } catch (Exception e) {
-            print("Can't save " + fileName + " " + e);
+            print("Can't save", fileName, e);
         }
     }
 
@@ -60,7 +65,7 @@ public final class Service {
 
             return string;
         } catch (Exception e) {
-            print("Can't recovery " + fileName + " " + e);
+            print("Can't recovery", fileName, e);
             print("Creating new file...");
             writeToFile(fileName, "");
             print("Successful");

@@ -1,14 +1,14 @@
 package com.example.screens;
 
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
-
 import static com.example.screens.service.DATA.IMAGE_PICK_CODE;
 import static com.example.screens.service.DATA.PERMISSION_CODE;
+import static com.example.screens.service.DATA.alphabet;
 import static com.example.screens.service.DATA.idProblems;
+import static com.example.screens.service.DATA.latitude;
+import static com.example.screens.service.DATA.longitude;
 import static com.example.screens.service.DATA.userID;
 import static com.example.screens.service.Service.post;
-import static com.example.screens.service.DATA.longitude;
-import static com.example.screens.service.DATA.latitude;
 import static com.example.screens.service.Service.print;
 import static com.example.screens.service.Service.sleep;
 
@@ -17,6 +17,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -26,13 +27,17 @@ import androidx.annotation.NonNull;
 import com.example.screens.service.BaseActivity;
 import com.example.screens.service.ClientServer;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.util.Random;
 
 public class AddProblem extends BaseActivity {
     private ImageView imageView;
+    private Bitmap currentBitmap;
+    private String currentBytes;
+    private final Random random = new Random();
+    private volatile boolean alreadyPost, stillLoading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,58 +102,93 @@ public class AddProblem extends BaseActivity {
         if (resultCode == RESULT_OK && requestCode == IMAGE_PICK_CODE) {
             //set image to image view
             imageView.setImageURI(data.getData());
+
+            post(() -> {
+                stillLoading = true;
+
+                if (currentBitmap != null) {
+                    currentBitmap.recycle();
+                }
+                currentBitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+
+                parseImg();
+
+                stillLoading = false;
+            });
         }
     }
 
     private void postProblem() {
-        post(() -> {
-            try {
-                String name = getText(findViewById(R.id.editTitle));
+        if (!alreadyPost) {
+            alreadyPost = true;
 
-                if (name.length() == 0) {
-                    makeToast("Введите название проблемы!");
-                    return;
+            post(() -> {
+                while (stillLoading) {
+                    sleep(250);
                 }
 
-                postImg();
+                try {
+                    String name = getText(findViewById(R.id.editTitle));
 
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put("name", name);
-                jsonObject.put("description", getText(findViewById(R.id.editDescription)));
-                jsonObject.put("coordinates", latitude + "," + longitude);
-                jsonObject.put("user_id", userID);
-                jsonObject.put("category", "Экологическая");
+                    if (name.length() == 0) {
+                        makeToast("Введите название проблемы!");
+                        return;
+                    }
 
-                print(jsonObject);
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("name", name);
+                    jsonObject.put("description", getText(findViewById(R.id.editDescription)));
+                    jsonObject.put("coordinates", latitude + "," + longitude);
+                    jsonObject.put("user_id", userID);
+                    jsonObject.put("category", "Экологическая");
+                    jsonObject.put("filename", getRandomFileName(10));
+                    jsonObject.put("file", currentBytes);
 
-                jsonObject = ClientServer.post("add_problem", jsonObject);
+                    print(jsonObject);
 
-                if (jsonObject.has("id_problem")) {
-                    idProblems.add((Integer) jsonObject.get("id_problem"));
+                    jsonObject = ClientServer.post("add_problem", jsonObject);
 
-                    makeToast("Проблема отправлена");
-                } else {
-                    makeToast("Ошибка при обращении к серверу");
+                    if (jsonObject.has("id_problem")) {
+                        idProblems.add((Integer) jsonObject.get("id_problem"));
+
+                        makeToast("Проблема отправлена");
+                    } else {
+                        makeToast("Ошибка при обращении к серверу");
+                    }
+                } catch (Exception e) {
+                    print("Can't post problem", e);
                 }
-            } catch (Exception e) {
-                print("Post problem " + e);
-            }
-        });
+                alreadyPost = false;
+            });
+        } else {
+            makeFastToast("Проблема еще отправляется...");
+        }
     }
 
-    private void postImg() throws JSONException {
-        JSONObject jsonObject = new JSONObject();
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        ((BitmapDrawable) imageView.getDrawable()).getBitmap()
-                .compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+    private void parseImg() {
+        try {
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            currentBitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+            byteArrayOutputStream.flush();
 
-        jsonObject.put("files", byteArrayOutputStream.toByteArray());
+            currentBytes = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
 
-        ClientServer.post("add_problem", jsonObject);
+            byteArrayOutputStream.close();
+        } catch (Exception e) {
+            print("Can't parse image", e);
+        }
     }
 
     private String getText(EditText editText) {
         return editText.getText().toString();
+    }
+
+    private String getRandomFileName(int len) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < len; i++) {
+            stringBuilder.append(alphabet[random.nextInt(alphabet.length)]);
+        }
+        return stringBuilder.append("_").append(userID).append(".jpg").toString();
     }
 }
 

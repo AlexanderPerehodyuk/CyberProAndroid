@@ -41,7 +41,7 @@ public final class ClientServer {
 
             return answer;
         } catch (Exception e) {
-            print("Call: " + e);
+            print("Call:", e);
         }
 
         return new JSONObject();
