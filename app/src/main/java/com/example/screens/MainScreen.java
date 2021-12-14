@@ -46,7 +46,7 @@ public class MainScreen extends BaseActivity {
             /*  Пока ничего, но потом должно кидать на список всех проблем */
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainScreen.this, ProblemsActivity.class));
+//                startActivity(new Intent(MainScreen.this, ProblemsActivity.class));
             }
         });
     }

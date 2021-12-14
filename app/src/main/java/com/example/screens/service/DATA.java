@@ -13,6 +13,4 @@ public final class DATA {
     public static volatile int userID;
 
     public static ArrayList<Integer> idProblems = new ArrayList<>(0);
-
-    public static final char[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
 }

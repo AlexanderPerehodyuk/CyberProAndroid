@@ -32,16 +32,13 @@ public final class ClientServer {
         try {
             Response response = call.execute();
 
-            String s = response.body().string();
-            print(s);
-
-            JSONObject answer = new JSONObject(s);
+            JSONObject answer = new JSONObject(response.body().string());
 
             response.close();
 
             return answer;
         } catch (Exception e) {
-            print("Call:", e);
+            print("Call: " + e);
         }
 
         return new JSONObject();

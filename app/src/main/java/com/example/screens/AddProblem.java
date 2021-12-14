@@ -3,7 +3,6 @@ package com.example.screens;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static com.example.screens.service.DATA.IMAGE_PICK_CODE;
 import static com.example.screens.service.DATA.PERMISSION_CODE;
-import static com.example.screens.service.DATA.alphabet;
 import static com.example.screens.service.DATA.idProblems;
 import static com.example.screens.service.DATA.latitude;
 import static com.example.screens.service.DATA.longitude;
@@ -30,13 +29,11 @@ import com.example.screens.service.ClientServer;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
-import java.util.Random;
 
 public class AddProblem extends BaseActivity {
     private ImageView imageView;
     private Bitmap currentBitmap;
     private String currentBytes;
-    private final Random random = new Random();
     private volatile boolean alreadyPost, stillLoading;
 
     @Override
@@ -62,15 +59,7 @@ public class AddProblem extends BaseActivity {
             }
         });
 
-        findViewById(R.id.buttonPost).setOnClickListener(view -> {
-            postProblem();
-
-            post(() -> {
-                sleep(6000);
-
-                print(ClientServer.get("all_problem"));
-            });
-        });
+        findViewById(R.id.buttonPost).setOnClickListener(view -> postProblem());
     }
 
     private void pickImageFromGallery() {
@@ -141,17 +130,19 @@ public class AddProblem extends BaseActivity {
                     jsonObject.put("coordinates", latitude + "," + longitude);
                     jsonObject.put("user_id", userID);
                     jsonObject.put("category", "Экологическая");
-                    jsonObject.put("filename", getRandomFileName(10));
-                    jsonObject.put("file", currentBytes);
-
-                    print(jsonObject);
+                    jsonObject.put("filename", "q.jpg");
+                    jsonObject.put("file", "'" + currentBytes + "'");
 
                     jsonObject = ClientServer.post("add_problem", jsonObject);
 
                     if (jsonObject.has("id_problem")) {
-                        idProblems.add((Integer) jsonObject.get("id_problem"));
+                        if (!jsonObject.getString("id_problem").equals("Похожая проблема")) {
+                            idProblems.add(jsonObject.getInt("id_problem"));
 
-                        makeToast("Проблема отправлена");
+                            makeToast("Проблема отправлена");
+                        } else {
+                            makeToast("Такая проблема уже существует!");
+                        }
                     } else {
                         makeToast("Ошибка при обращении к серверу");
                     }
@@ -182,16 +173,4 @@ public class AddProblem extends BaseActivity {
     private String getText(EditText editText) {
         return editText.getText().toString();
     }
-
-    private String getRandomFileName(int len) {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < len; i++) {
-            stringBuilder.append(alphabet[random.nextInt(alphabet.length)]);
-        }
-        return stringBuilder.append("_").append(userID).append(".jpg").toString();
-    }
 }
-
-
-
-

@@ -17,26 +17,22 @@ public class LoadingActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_loading);
 
         Service.post(() -> {
             Service.init(this);
             personalData = Service.readFromFile("DATA");
 
-            Runnable runnable;
-            if (personalData == null) {
-                runnable = () -> startActivity(RegisterActivity.class);
-            } else {
+            if (personalData != null) {
                 String[] strings = personalData.split(" ");
                 userID = Integer.parseInt(strings[strings.length - 1]);
-
-                runnable = () -> startActivity(MainScreen.class);
             }
 
             TedPermission.create()
                     .setPermissionListener(new PermissionListener() { // создаёт окно для запроса
                         @Override
                         public void onPermissionGranted() {
-                            new LocationModification(getApplicationContext(), runnable);
+                            new LocationModification(getApplicationContext(), () -> startActivity(EntranceActivity.class));
                         }
 
                         @Override
