@@ -42,11 +42,11 @@ public class MainScreen extends BaseActivity {
             }
         });
 
-        findViewById(R.id.problem_ll).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.problem_all).setOnClickListener(new View.OnClickListener() {
             /*  Пока ничего, но потом должно кидать на список всех проблем */
             @Override
             public void onClick(View v) {
-//                startActivity(new Intent(MainScreen.this, ProblemsActivity.class));
+                startActivity(new Intent(MainScreen.this, ProblemsActivity.class));
             }
         });
     }

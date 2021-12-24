@@ -22,7 +22,6 @@ public class EntranceActivity extends BaseActivity {
             }
         });
 
-        findViewById(R.id.button2).setOnClickListener(view -> startActivity(MainScreen.class));
-
+        findViewById(R.id.button2).setOnClickListener(view -> startActivity(LoginActivity.class));
     }
 }

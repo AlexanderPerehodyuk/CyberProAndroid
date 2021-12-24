@@ -88,7 +88,6 @@ public class RegisterActivity extends BaseActivity {
                     writeToFile("DATA", name + " " + surname + " " + mail
                             + " " + password + " " + jsonObject.get("id"));
 
-                    print(jsonObject);
                     userID = (int) jsonObject.get("id");
 
                     startActivity(MainScreen.class);
