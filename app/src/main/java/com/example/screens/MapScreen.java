@@ -1,7 +1,7 @@
 package com.example.screens;
 
-import static com.example.screens.SplashScreenActivity.latitude;
-import static com.example.screens.SplashScreenActivity.longitude;
+import static com.example.screens.service.DATA.latitude;
+import static com.example.screens.service.DATA.longitude;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,13 +10,11 @@ import android.graphics.PointF;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.screens.service.BaseActivity;
 import com.yandex.mapkit.Animation;
 import com.yandex.mapkit.MapKitFactory;
 import com.yandex.mapkit.layers.GeoObjectTapEvent;
@@ -32,29 +30,26 @@ import com.yandex.runtime.image.ImageProvider;
 
 import java.util.ArrayList;
 
-public class MapScreen extends AppCompatActivity implements GeoObjectTapListener, UserLocationObjectListener {
-    Button m0rder;
-    String[] listItems;
-    boolean[] checkedItems;
-    ArrayList<Integer> mUserItems = new ArrayList<>();
-    static MapView mapview;
+public class MapScreen extends BaseActivity implements GeoObjectTapListener, UserLocationObjectListener {
+    private String[] listItems;
+    private boolean[] checkedItems;
+    private final ArrayList<Integer> mUserItems = new ArrayList<>();
+    private MapView mapview;
     private UserLocationLayer userLocationLayer;
-    ImageView imageView, findYourLocationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mapview = (MapView) findViewById(R.id.mapview); // находим нашу карту в loyout
+        mapview = findViewById(R.id.mapview); // находим нашу карту в loyout
 
         resetPos();
 
         mapview.getMap().addTapListener(this);
         userLocationLayer = MapKitFactory.getInstance().createUserLocationLayer(mapview.getMapWindow());
-        imageView = (ImageView) findViewById(R.id.add_problem_view);
-        findYourLocationView = (ImageView) findViewById(R.id.findYourLocationView);
-        findYourLocationView.setOnClickListener(new View.OnClickListener() {
+
+        findViewById(R.id.findYourLocationView).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 resetPos();
@@ -63,7 +58,7 @@ public class MapScreen extends AppCompatActivity implements GeoObjectTapListener
                         ImageProvider.fromResource(getBaseContext(), R.drawable.problem));
             }
         });
-        imageView.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.add_problem_view).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
@@ -73,12 +68,10 @@ public class MapScreen extends AppCompatActivity implements GeoObjectTapListener
 
         userLocationLayer.setVisible(true);
 
-        m0rder = (Button) findViewById(R.id.bntOrder);
-
         listItems = getResources().getStringArray(R.array.problems_item);
         checkedItems = new boolean[listItems.length];
 
-        m0rder.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.bntOrder).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(MapScreen.this);
