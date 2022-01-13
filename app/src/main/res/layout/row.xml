@@ -17,14 +17,7 @@
         android:textSize="30dp"/>
 
 
-    <TextView
-        android:textColor="@color/teal_700"
 
-        android:textSize="30dp"
-        android:id="@+id/textViewDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Описание" />
     <TextView
         android:textColor="@color/teal_700"
 
@@ -34,19 +27,27 @@
         android:layout_height="wrap_content"
         android:text="Тип" />
 
+    <TextView
+        android:textColor="@color/teal_700"
+
+        android:textSize="30dp"
+        android:id="@+id/textViewData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Дата" />
+
     <ImageView
 
         android:id="@+id/imageViewProblem"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:background="@drawable/add_problem_icon"
-        />
+        android:background="@drawable/ic_baseline_insert_photo_24" />
     <TextView
         android:textColor="@color/teal_700"
 
         android:textSize="30dp"
-        android:id="@+id/textViewResult"
+        android:id="@+id/textViewDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Результат" />
+        android:text="Описание" />
 </androidx.appcompat.widget.LinearLayoutCompat>

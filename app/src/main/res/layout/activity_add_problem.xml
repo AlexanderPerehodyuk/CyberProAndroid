@@ -26,6 +26,7 @@
         android:text="Выбрать изображение" />
 
     <EditText
+
         android:id="@+id/editTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -43,7 +44,16 @@
         android:hint="Описание"
         android:imeOptions="actionDone"
         android:inputType="text" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/problems_array"
+        android:textAlignment="center" />
+
     <EditText
+
         android:id="@+id/editPlace"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -51,6 +61,7 @@
         android:hint="Местоположение"
         android:imeOptions="actionDone"
         android:inputType="text" />
+
     <Button
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
