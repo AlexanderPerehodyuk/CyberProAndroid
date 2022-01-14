@@ -9,7 +9,7 @@
     >
 
     <TextView
-        android:textColor="@color/teal_700"
+        android:textColor="#67C4CF"
         android:id="@+id/textViewName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,7 +19,7 @@
 
 
     <TextView
-        android:textColor="@color/teal_700"
+        android:textColor="#67C4CF"
 
         android:textSize="30dp"
         android:id="@+id/textViewType"
@@ -28,7 +28,7 @@
         android:text="Тип" />
 
     <TextView
-        android:textColor="@color/teal_700"
+        android:textColor="#67C4CF"
 
         android:textSize="30dp"
         android:id="@+id/textViewData"
@@ -43,7 +43,7 @@
         android:layout_height="100dp"
         android:background="@drawable/ic_baseline_insert_photo_24" />
     <TextView
-        android:textColor="@color/teal_700"
+        android:textColor="#67C4CF"
 
         android:textSize="30dp"
         android:id="@+id/textViewDescription"

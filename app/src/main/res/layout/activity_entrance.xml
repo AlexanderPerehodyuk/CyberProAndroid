@@ -19,6 +19,8 @@
         app:srcCompat="@drawable/splashs_screen" />
 
     <Button
+        android:backgroundTint="#67C4CF"
+
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:id="@+id/buttonRegistration"
@@ -33,6 +35,7 @@
         app:layout_constraintVertical_bias="0.501" />
 
     <Button
+        android:backgroundTint="#67C4CF"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:id="@+id/button2"
