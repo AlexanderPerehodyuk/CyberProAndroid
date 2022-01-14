@@ -6,25 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".ProblemsActivity">
 
-
-<<<<<<< HEAD
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="100dp"
-        android:layout_height="40dp" />
-
-=======
->>>>>>> b4a93e723bdb3ad69e83ffc0cd3f2fe0138d9361
-    <ListView
-        android:id="@+id/listView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp" />
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:id="@+id/progressBar"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/recyclerView" />
 </RelativeLayout>

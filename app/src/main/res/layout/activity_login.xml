@@ -69,7 +69,6 @@
         app:layout_constraintTop_toBottomOf="@+id/passwordText" />
 
     <Button
-        android:backgroundTint="#67C4CF"
         android:id="@+id/buttonRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
