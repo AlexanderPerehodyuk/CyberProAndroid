@@ -16,6 +16,7 @@
         android:src="@drawable/ic_baseline_photo_24" />
 
     <Button
+        android:backgroundTint="#67C4CF"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:id="@+id/buttonChooseImg"
@@ -63,6 +64,7 @@
         android:inputType="text" />
 
     <Button
+        android:backgroundTint="#67C4CF"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:id="@+id/buttonPost"
