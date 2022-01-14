@@ -69,16 +69,16 @@
         app:layout_constraintTop_toBottomOf="@+id/passwordText" />
 
     <Button
-        android:backgroundTint="#67C4CF"
         android:id="@+id/buttonRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="48dp"
+        android:layout_marginTop="50dp"
+        android:backgroundTint="#67C4CF"
         android:onClick="enter"
         android:text="@string/enter"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editPassword" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"

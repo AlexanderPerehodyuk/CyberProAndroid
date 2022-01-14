@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
     <TextView
+        android:layout_marginBottom="20dp"
         android:id="@+id/registerText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,6 +32,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
     <EditText
+        android:layout_marginBottom="20dp"
         android:id="@+id/editName"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
@@ -53,6 +59,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
     <EditText
+        android:layout_marginBottom="20dp"
         android:id="@+id/editSurname"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
@@ -79,6 +86,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline6" />
 
     <EditText
+        android:layout_marginBottom="20dp"
         android:id="@+id/editMail"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
@@ -105,6 +113,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline7" />
 
     <EditText
+        android:layout_marginBottom="20dp"
         android:id="@+id/editPassword"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
@@ -140,17 +149,19 @@
         android:inputType="textPassword"
         android:minWidth="48dp"
         android:minHeight="48dp"
+        android:layout_marginBottom="40dp"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="@+id/passwordAgainText"
         app:layout_constraintStart_toStartOf="@+id/passwordAgainText"
         app:layout_constraintTop_toBottomOf="@+id/passwordAgainText" />
 
     <Button
+        android:textSize="15dp"
         android:backgroundTint="#67C4CF"
         android:id="@+id/buttonRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="48dp"
+        android:layout_marginBottom="20dp"
         android:onClick="register"
         android:text="@string/make_register"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -198,5 +209,5 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="493dp" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
+</ScrollView>
