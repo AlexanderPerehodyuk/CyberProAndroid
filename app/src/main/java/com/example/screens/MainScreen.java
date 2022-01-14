@@ -28,7 +28,6 @@ public class MainScreen extends BaseActivity {
         }
 
         findViewById(R.id.add_problem_ll).setOnClickListener(new View.OnClickListener() {
-            /*  Пока ничего, но потом должно кидать на экран добваления проблемы */
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainScreen.this, AddProblem.class));

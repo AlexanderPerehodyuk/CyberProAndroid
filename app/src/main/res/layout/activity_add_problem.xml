@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,13 +15,13 @@
         android:src="@drawable/ic_baseline_photo_24" />
 
     <Button
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
         android:id="@+id/buttonChooseImg"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
         android:text="Выбрать изображение" />
 
     <EditText
@@ -43,20 +42,13 @@
         android:hint="Описание"
         android:imeOptions="actionDone"
         android:inputType="text" />
-    <EditText
-        android:id="@+id/editPlace"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:hint="Местоположение"
-        android:imeOptions="actionDone"
-        android:inputType="text" />
+
     <Button
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
         android:id="@+id/buttonPost"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:text="Отправить" />
 
 </LinearLayout>

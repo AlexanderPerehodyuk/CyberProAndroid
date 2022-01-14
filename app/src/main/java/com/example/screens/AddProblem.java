@@ -130,7 +130,7 @@ public class AddProblem extends BaseActivity {
                     jsonObject.put("coordinates", latitude + "," + longitude);
                     jsonObject.put("user_id", userID);
                     jsonObject.put("category", "Экологическая");
-                    jsonObject.put("file", currentBytes);
+                    jsonObject.put("file", "'" + currentBytes + "'");
 
                     jsonObject = ClientServer.post("add_problem", jsonObject);
 
