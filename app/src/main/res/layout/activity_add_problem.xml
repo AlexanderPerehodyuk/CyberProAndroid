@@ -15,6 +15,12 @@
         android:src="@drawable/ic_baseline_photo_24" />
 
     <Button
+<<<<<<< HEAD
+=======
+        android:backgroundTint="#67C4CF"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+>>>>>>> b4a93e723bdb3ad69e83ffc0cd3f2fe0138d9361
         android:id="@+id/buttonChooseImg"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -25,6 +31,7 @@
         android:text="Выбрать изображение" />
 
     <EditText
+
         android:id="@+id/editTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -43,7 +50,31 @@
         android:imeOptions="actionDone"
         android:inputType="text" />
 
+<<<<<<< HEAD
     <Button
+=======
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/problems_array"
+        android:textAlignment="center" />
+
+    <EditText
+
+        android:id="@+id/editPlace"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:hint="Местоположение"
+        android:imeOptions="actionDone"
+        android:inputType="text" />
+
+    <Button
+        android:backgroundTint="#67C4CF"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+>>>>>>> b4a93e723bdb3ad69e83ffc0cd3f2fe0138d9361
         android:id="@+id/buttonPost"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -7,11 +7,14 @@
     tools:context=".ProblemsActivity">
 
 
+<<<<<<< HEAD
     <Spinner
         android:id="@+id/spinner"
         android:layout_width="100dp"
         android:layout_height="40dp" />
 
+=======
+>>>>>>> b4a93e723bdb3ad69e83ffc0cd3f2fe0138d9361
     <ListView
         android:id="@+id/listView"
         android:layout_width="wrap_content"

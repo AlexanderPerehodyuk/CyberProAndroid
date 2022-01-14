@@ -18,8 +18,11 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -40,7 +43,17 @@ public class AddProblem extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_problem);
+        // Получаем экземпляр элемента Spinner
+        Spinner spinner = findViewById(R.id.spinner);
 
+// Настраиваем адаптер
+        ArrayAdapter<?> adapter =
+                ArrayAdapter.createFromResource(this, R.array.problems_array,
+                        android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+// Вызываем адаптер
+        spinner.setAdapter(adapter);
         imageView = findViewById(R.id.imageView);
 
         findViewById(R.id.buttonChooseImg).setOnClickListener(new View.OnClickListener() {
