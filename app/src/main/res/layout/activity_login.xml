@@ -73,7 +73,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:backgroundTint="#67C4CF"
+        android:background="@drawable/custom_button"
         android:onClick="enter"
         android:text="@string/enter"
         app:layout_constraintEnd_toEndOf="parent"

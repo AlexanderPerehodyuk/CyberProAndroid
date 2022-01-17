@@ -19,23 +19,20 @@
         app:srcCompat="@drawable/splashs_screen" />
 
     <Button
-        android:backgroundTint="#67C4CF"
-
+        android:background="@drawable/custom_button"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:id="@+id/buttonRegistration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ЗАрегистрироваться"
+        android:text="Зарегистрироваться"
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        app:layout_constraintVertical_bias="0.501" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <Button
-        android:backgroundTint="#67C4CF"
+        android:background="@drawable/custom_button"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:id="@+id/button2"
