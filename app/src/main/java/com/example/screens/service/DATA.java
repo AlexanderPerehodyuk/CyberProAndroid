@@ -8,7 +8,7 @@ public final class DATA {
 
     public static volatile double latitude, longitude;
 
-    public static String personalData;
+    public static String[] personalData;
 
     public static volatile int userID;
 

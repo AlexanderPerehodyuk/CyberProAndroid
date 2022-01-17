@@ -9,7 +9,6 @@ import static com.example.screens.service.DATA.longitude;
 import static com.example.screens.service.DATA.userID;
 import static com.example.screens.service.Service.post;
 import static com.example.screens.service.Service.print;
-import static com.example.screens.service.Service.sleep;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -22,10 +21,12 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.Downsampler;
 import com.example.screens.service.BaseActivity;
 import com.example.screens.service.ClientServer;
 
@@ -35,20 +36,21 @@ import java.io.ByteArrayOutputStream;
 
 public class AddProblem extends BaseActivity {
     private ImageView imageView;
-    private Bitmap currentBitmap;
+    private Spinner spinner;
+
     private String currentBytes;
-    private volatile boolean alreadyPost, stillLoading;
+    private volatile boolean alreadyPost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_problem);
         // Получаем экземпляр элемента Spinner
-        Spinner spinner = findViewById(R.id.spinner);
+        spinner = findViewById(R.id.spinner);
 
 // Настраиваем адаптер
         ArrayAdapter<?> adapter =
-                ArrayAdapter.createFromResource(this, R.array.problems_array,
+                ArrayAdapter.createFromResource(this, R.array.problems_item,
                         android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -103,20 +105,12 @@ public class AddProblem extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == IMAGE_PICK_CODE) {
             //set image to image view
-            imageView.setImageURI(data.getData());
-
-            post(() -> {
-                stillLoading = true;
-
-                if (currentBitmap != null) {
-                    currentBitmap.recycle();
-                }
-                currentBitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-
-                parseImg();
-
-                stillLoading = false;
-            });
+            Glide.with(this)
+                    .asBitmap()
+                    .load(data.getData())
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .set(Downsampler.ALLOW_HARDWARE_CONFIG, true)
+                    .into(imageView);
         }
     }
 
@@ -125,10 +119,6 @@ public class AddProblem extends BaseActivity {
             alreadyPost = true;
 
             post(() -> {
-                while (stillLoading) {
-                    sleep(250);
-                }
-
                 try {
                     String name = getText(findViewById(R.id.editTitle));
 
@@ -137,13 +127,15 @@ public class AddProblem extends BaseActivity {
                         return;
                     }
 
+                    parseImg();
+
                     JSONObject jsonObject = new JSONObject();
                     jsonObject.put("name", name);
                     jsonObject.put("description", getText(findViewById(R.id.editDescription)));
                     jsonObject.put("coordinates", latitude + "," + longitude);
                     jsonObject.put("user_id", userID);
-                    jsonObject.put("category", "Экологическая");
-                    jsonObject.put("file", "'" + currentBytes + "'");
+                    jsonObject.put("category", spinner.getSelectedItem().toString());
+                    jsonObject.put("file", currentBytes);
 
                     jsonObject = ClientServer.post("add_problem", jsonObject);
 
@@ -152,6 +144,8 @@ public class AddProblem extends BaseActivity {
                             idProblems.add(jsonObject.getInt("id_problem"));
 
                             makeToast("Проблема отправлена");
+
+                            finish();
                         } else {
                             makeToast("Такая проблема уже существует!");
                         }
@@ -168,18 +162,18 @@ public class AddProblem extends BaseActivity {
         }
     }
 
-    private void parseImg() {
-        try {
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            currentBitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-            byteArrayOutputStream.flush();
+    private void parseImg() throws Exception {
+        Bitmap currentBitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
 
-            currentBytes = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
-            byteArrayOutputStream.close();
-        } catch (Exception e) {
-            print("Can't parse image", e);
-        }
+        currentBitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+
+        byteArrayOutputStream.flush();
+
+        currentBytes = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
+
+        byteArrayOutputStream.close();
     }
 
     private String getText(EditText editText) {

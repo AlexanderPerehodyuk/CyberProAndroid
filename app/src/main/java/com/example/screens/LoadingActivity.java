@@ -21,11 +21,11 @@ public class LoadingActivity extends BaseActivity {
 
         Service.post(() -> {
             Service.init(this);
-            personalData = Service.readFromFile("DATA");
+            String data = Service.readFromFile("DATA");
 
-            if (personalData != null) {
-                String[] strings = personalData.split(" ");
-                userID = Integer.parseInt(strings[strings.length - 1]);
+            if (data != null) {
+                personalData = data.split(" ");
+                userID = Integer.parseInt(personalData[personalData.length - 1]);
             }
 
             TedPermission.create()
@@ -45,5 +45,9 @@ public class LoadingActivity extends BaseActivity {
                     .setPermissions(Manifest.permission.ACCESS_FINE_LOCATION) // как я понял, это разрешение передать в настройках местоположение для приложения
                     .check();
         });
+    }
+
+    @Override
+    public void onBackPressed() {
     }
 }

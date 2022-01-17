@@ -34,14 +34,11 @@ public class LoginActivity extends BaseActivity {
             }
 
             try {
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put("email", mail);
-                jsonObject.put("password", password);
+                JSONObject jsonObject = new JSONObject().put("email", mail).put("password", password);
 
                 jsonObject = ClientServer.post("login", jsonObject);
-
                 if (jsonObject.has("status")) {
-//                    надо получить фамилию, имя и т.д. из новой функции
+//                    print(ClientServer.post("user", new JSONObject().put("user_id", jsonObject.getInt("id"))));
                     startActivity(MainScreen.class);
                 } else {
                     if (jsonObject.getString("error").equals("User not registered")) {
@@ -56,7 +53,7 @@ public class LoginActivity extends BaseActivity {
         });
     }
 
-    private String clearSpacebars(EditText editText) {
+    protected String clearSpacebars(EditText editText) {
         String message = getText(editText);
 
         if (message.length() != 0) {
@@ -75,7 +72,12 @@ public class LoginActivity extends BaseActivity {
         return "";
     }
 
-    private String getText(EditText editText) {
+    protected String getText(EditText editText) {
         return editText.getText().toString();
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(EntranceActivity.class);
     }
 }

@@ -1,22 +1,21 @@
 package com.example.screens;
 
+import static com.example.screens.service.DATA.personalData;
+import static com.example.screens.service.DATA.userID;
 import static com.example.screens.service.Service.print;
 import static com.example.screens.service.Service.sleep;
 import static com.example.screens.service.Service.writeToFile;
-import static com.example.screens.service.DATA.userID;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 
-import com.example.screens.service.BaseActivity;
 import com.example.screens.service.ClientServer;
 import com.example.screens.service.Service;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class RegisterActivity extends BaseActivity {
+public class RegisterActivity extends LoginActivity {
     private JSONArray jsonArray;
 
     @Override
@@ -33,7 +32,8 @@ public class RegisterActivity extends BaseActivity {
         });
     }
 
-    public void register(View view) {
+    @Override
+    public void enter(View view) {
         Service.post(() -> {
             String name = clearSpacebars(findViewById(R.id.editName));
             String surname = clearSpacebars(findViewById(R.id.editSurname));
@@ -85,10 +85,12 @@ public class RegisterActivity extends BaseActivity {
                 if (jsonObject.has("id")) {
                     makeToast("Регистрация успешна!");
 
-                    writeToFile("DATA", name + " " + surname + " " + mail
-                            + " " + password + " " + jsonObject.get("id"));
+                    userID = jsonObject.getInt("id");
 
-                    userID = (int) jsonObject.get("id");
+                    writeToFile("DATA", name + " " + surname + " " + mail
+                            + " " + password + " " + userID);
+
+                    personalData = new String[] {name, surname, mail, password, String.valueOf(userID)};
 
                     startActivity(MainScreen.class);
                 } else {
@@ -98,28 +100,5 @@ public class RegisterActivity extends BaseActivity {
                 print(e);
             }
         });
-    }
-
-    private String clearSpacebars(EditText editText) {
-        String message = getText(editText);
-
-        if (message.length() != 0) {
-            String[] list = message.split(" ");
-            StringBuilder stringBuilder = new StringBuilder();
-
-            for (String s : list) {
-                if (!s.equals("")) {
-                    stringBuilder.append(s).append(" ");
-                }
-            }
-
-            return stringBuilder.deleteCharAt(stringBuilder.length() - 1).toString();
-        }
-
-        return "";
-    }
-
-    private String getText(EditText editText) {
-        return editText.getText().toString();
     }
 }

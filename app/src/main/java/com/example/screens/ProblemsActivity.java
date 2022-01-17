@@ -5,19 +5,25 @@ import static com.example.screens.service.Service.print;
 
 import android.os.Bundle;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.screens.service.BaseActivity;
 import com.example.screens.service.ClientServer;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class ProblemsActivity extends BaseActivity {
-    private JSONArray allProblems;
+    private RecyclerView recyclerView;
+    private RecyclerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_problems);
+
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         post(() -> {
             try {
@@ -36,15 +42,14 @@ public class ProblemsActivity extends BaseActivity {
             return;
         }
 
-        print(jsonObject);
+        adapter = new RecyclerAdapter(jsonObject.getJSONArray("problems"));
+        runOnUiThread(() -> recyclerView.setAdapter(adapter));
+    }
 
-        allProblems = jsonObject.getJSONArray("problems");
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
 
-        print("   ");
-        for (int i = 0; i < allProblems.length(); i++) {
-            print(allProblems.getJSONObject(i));
-        }
-
-        makeToast("Успешно!");
+        if (adapter != null) adapter.dispose();
     }
 }

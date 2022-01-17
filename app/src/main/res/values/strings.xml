@@ -6,10 +6,10 @@
     <string name="my_problems">Мои проблемы</string>
     <string name="add_problem">Добавить проблему</string>
     <string-array name="problems_item">
+        <item>Дорожная</item>
+        <item>Экологическая</item>
         <item>ЖКХ</item>
-        <item>Транспортная</item>
-        <item>Социальные</item>
-        <item>Экологические</item>
+        <item>Другая</item>
     </string-array>
     <string name="title_activity_problems">ProblemsActivity</string>
     <!-- Strings used for fragments for navigation -->
