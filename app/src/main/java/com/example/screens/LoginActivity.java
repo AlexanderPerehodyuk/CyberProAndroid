@@ -39,6 +39,7 @@ public class LoginActivity extends BaseActivity {
                 jsonObject = ClientServer.post("login", jsonObject);
                 if (jsonObject.has("status")) {
 //                    print(ClientServer.post("user", new JSONObject().put("user_id", jsonObject.getInt("id"))));
+
                     startActivity(MainScreen.class);
                 } else {
                     if (jsonObject.getString("error").equals("User not registered")) {

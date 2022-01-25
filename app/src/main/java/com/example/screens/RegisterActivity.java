@@ -12,11 +12,10 @@ import android.view.View;
 import com.example.screens.service.ClientServer;
 import com.example.screens.service.Service;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class RegisterActivity extends LoginActivity {
-    private JSONArray jsonArray;
+    private String allMails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +24,8 @@ public class RegisterActivity extends LoginActivity {
 
         Service.post(() -> {
             try {
-                jsonArray = (JSONArray) (ClientServer.get("all_users")).get("users");
+                allMails = (ClientServer.get("all_users")).getJSONArray("users").toString();
+                print(allMails);
             } catch (Exception e) {
                 print(e);
             }
@@ -49,7 +49,7 @@ public class RegisterActivity extends LoginActivity {
                 makeToast("Введите вашу фамилию!");
                 return;
             }
-            if (mail.length() == 0 || !mail.contains("@")) {
+            if (!correctEmail(mail)) {
                 makeToast("Некорректный адрес электронной почты!");
                 return;
             }
@@ -62,16 +62,14 @@ public class RegisterActivity extends LoginActivity {
                 return;
             }
 
-            while (jsonArray == null) {
+            while (allMails == null) {
                 sleep(250);
                 print("wait");
             }
             try {
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    if (jsonArray.getString(i).equals(mail)) {
-                        makeToast("Данная почта уже зарегистрирована!");
-                        return;
-                    }
+                if (allMails.contains(mail)) {
+                    makeToast("Данная почта уже зарегистрирована!");
+                    return;
                 }
 
                 JSONObject jsonObject = new JSONObject();
@@ -87,10 +85,9 @@ public class RegisterActivity extends LoginActivity {
 
                     userID = jsonObject.getInt("id");
 
-                    writeToFile("DATA", name + " " + surname + " " + mail
-                            + " " + password + " " + userID);
+                    writeToFile("DATA", name + " " + surname + " " + mail + " " + password + " " + userID);
 
-                    personalData = new String[] {name, surname, mail, password, String.valueOf(userID)};
+                    personalData = new String[]{name, surname, mail, password, String.valueOf(userID)};
 
                     startActivity(MainScreen.class);
                 } else {
@@ -100,5 +97,23 @@ public class RegisterActivity extends LoginActivity {
                 print(e);
             }
         });
+    }
+
+    private boolean correctEmail(String email) {
+        int len = email.length();
+
+        if (len == 0) return false;
+        if (numCharacter(email, '@') != 1) return false;
+        if (numCharacter(email, '.') == 0) return false;
+        if (email.indexOf('.') + 1 == len) return false;
+        return email.charAt(email.indexOf('@') + 1) != '.';
+    }
+
+    private int numCharacter(String input, char character) {
+        int count = 0;
+        for (int i = 0; i < input.length(); i++) {
+            if (input.charAt(i) == character) count++;
+        }
+        return count;
     }
 }
