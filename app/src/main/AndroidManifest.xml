@@ -38,7 +38,7 @@
             android:exported="true"
             android:screenOrientation="fullSensor" />
         <activity
-            android:name=".ProblemsActivity"
+            android:name=".problems.AllProblemsActivity"
             android:exported="true"
             android:screenOrientation="fullSensor" />
         <activity
@@ -50,12 +50,17 @@
             android:exported="true"
             android:screenOrientation="fullSensor" />
         <activity
-            android:name=".AddProblem"
+            android:name=".problems.AddProblem"
+            android:exported="true"
+            android:screenOrientation="fullSensor" />
+        <activity
+            android:name=".problems.MyProblemsActivity"
             android:exported="true"
             android:screenOrientation="fullSensor" />
         <activity
             android:name=".MapScreen"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:exported="true"
+            android:screenOrientation="fullSensor" />
     </application>
 
 </manifest>

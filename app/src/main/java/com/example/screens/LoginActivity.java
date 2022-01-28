@@ -13,6 +13,8 @@ import com.example.screens.service.Service;
 import org.json.JSONObject;
 
 public class LoginActivity extends BaseActivity {
+    private boolean coolDown = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,43 +22,47 @@ public class LoginActivity extends BaseActivity {
     }
 
     public void enter(View view) {
-        Service.post(() -> {
-            String mail = clearSpacebars(findViewById(R.id.editMail));
-            String password = getText(findViewById(R.id.editPassword));
+        if (!coolDown) {
+            coolDown = true;
 
-            if (mail.length() == 0 || !mail.contains("@")) {
-                makeToast("Некорректный адрес электронной почты!");
-                return;
-            }
-            if (password.length() == 0) {
-                makeToast("Введите пароль!");
-                return;
-            }
+            Service.post(() -> {
+                String mail = clearSpacebars(findViewById(R.id.editMail));
+                String password = getText(findViewById(R.id.editPassword));
 
-            try {
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put("email", mail);
-                jsonObject.put("password", password);
-
-                jsonObject = ClientServer.post("login", jsonObject);
-
-                if (jsonObject.has("status")) {
-//                    надо получить фамилию, имя и т.д. из новой функции
-                    startActivity(MainScreen.class);
-                } else {
-                    if (jsonObject.getString("error").equals("User not registered")) {
-                        makeToast("Вы не зарегистрированы!");
-                    } else {
-                        makeToast("Ошибка при обращении к серверу");
-                    }
+                if (mail.length() == 0 || !mail.contains("@")) {
+                    makeToast("Некорректный адрес электронной почты!");
+                    return;
                 }
-            } catch (Exception e) {
-                print(e);
-            }
-        });
+                if (password.length() == 0) {
+                    makeToast("Введите пароль!");
+                    return;
+                }
+
+                try {
+                    JSONObject jsonObject = new JSONObject().put("email", mail).put("password", password);
+
+                    jsonObject = ClientServer.post("login", jsonObject);
+                    if (jsonObject.has("status")) {
+//                    print(ClientServer.post("user", new JSONObject().put("user_id", jsonObject.getInt("id"))));
+
+                        startActivity(MainScreen.class);
+                    } else {
+                        if (jsonObject.getString("error").equals("User not registered")) {
+                            makeToast("Вы не зарегистрированы!");
+                        } else {
+                            makeToast("Ошибка при обращении к серверу");
+                        }
+                    }
+                } catch (Exception e) {
+                    print(e);
+                }
+
+                coolDown = false;
+            });
+        }
     }
 
-    private String clearSpacebars(EditText editText) {
+    protected String clearSpacebars(EditText editText) {
         String message = getText(editText);
 
         if (message.length() != 0) {
@@ -75,7 +81,12 @@ public class LoginActivity extends BaseActivity {
         return "";
     }
 
-    private String getText(EditText editText) {
+    protected String getText(EditText editText) {
         return editText.getText().toString();
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(EntranceActivity.class);
     }
 }

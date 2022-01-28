@@ -40,9 +40,9 @@ public class MapScreen extends BaseActivity implements GeoObjectTapListener, Use
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_map);
 
-        mapview = findViewById(R.id.mapview); // находим нашу карту в loyout
+        mapview = findViewById(R.id.mapview); // находим нашу карту в layout
 
         resetPos();
 
@@ -71,7 +71,7 @@ public class MapScreen extends BaseActivity implements GeoObjectTapListener, Use
         listItems = getResources().getStringArray(R.array.problems_item);
         checkedItems = new boolean[listItems.length];
 
-        findViewById(R.id.bntOrder).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.multifunctionButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(MapScreen.this);
