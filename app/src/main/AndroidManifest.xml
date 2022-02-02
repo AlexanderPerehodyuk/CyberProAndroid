@@ -19,6 +19,11 @@
         android:theme="@style/Theme.Trans"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ProfileActivity"
+            android:exported="true"
+            android:label="@string/title_activity_profile"
+            android:theme="@style/Theme.Trans.NoActionBar" />
+        <activity
             android:name=".LoadingActivity"
             android:exported="true"
             android:screenOrientation="fullSensor">
@@ -28,7 +33,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".LoginActivity"
             android:exported="true"

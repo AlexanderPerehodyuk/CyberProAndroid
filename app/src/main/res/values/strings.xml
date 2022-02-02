@@ -27,8 +27,12 @@
     <string name="surname">Фамилия</string>
     <string name="email">Email</string>
     <string name="password">Пароль</string>
+    <string name="change_password">Изменить пароль</string>
     <string name="repeat_password">Повторите пароль</string>
     <string name="title_activity_entrance">EntranceActivity</string>
     <string name="auth">Авторизация</string>
     <string name="enter">Войти</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="confirm">Подтвердить</string>
+
 </resources>

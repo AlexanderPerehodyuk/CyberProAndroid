@@ -6,9 +6,13 @@ import static com.example.screens.service.DATA.personalData;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.drawable.AnimationDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -19,9 +23,15 @@ import androidx.core.content.ContextCompat;
 import com.example.screens.service.BaseActivity;
 import com.yandex.mapkit.MapKitFactory;
 
+import java.io.IOException;
+
 public class MainScreen extends BaseActivity {
+    private static final int IMAGE_PICK_CODE = 1;
     AnimationDrawable mDrawable;
     ConstraintLayout mLayout;
+    ImageView photo;
+    Uri ImagePhoto;
+    private static final int PICK_IMAGE = 1;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,5 +67,34 @@ public class MainScreen extends BaseActivity {
         mDrawable.setExitFadeDuration(2000);
         mDrawable.start();
         ((TextView) findViewById(R.id.textName)).setText((personalData[0] + " " + personalData[1]));
+
+        photo = (ImageView) findViewById(R.id.photo);
+        photo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pickImageFromGallery();
+            }
+        });
+    }
+    private void pickImageFromGallery() {
+        //intent to pick image
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, IMAGE_PICK_CODE);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE &&  resultCode == RESULT_OK) {
+            ImagePhoto = data.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), ImagePhoto);
+                photo.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
