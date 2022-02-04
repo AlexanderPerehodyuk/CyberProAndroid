@@ -61,6 +61,12 @@ public class MainScreen extends BaseActivity {
                 startActivity(new Intent(MainScreen.this, ProblemsActivity.class));
             }
         });
+        findViewById(R.id.profile).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainScreen.this, ProfileActivity.class));
+            }
+        });
         mLayout = (ConstraintLayout) findViewById(R.id.layout);
         mDrawable = (AnimationDrawable) mLayout.getBackground();
         mDrawable.setEnterFadeDuration(2000);
