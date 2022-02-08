@@ -2,9 +2,12 @@ package com.example.screens;
 
 import static com.example.screens.service.Service.print;
 
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.screens.service.BaseActivity;
 import com.example.screens.service.ClientServer;
@@ -13,10 +16,17 @@ import com.example.screens.service.Service;
 import org.json.JSONObject;
 
 public class LoginActivity extends BaseActivity {
+    AnimationDrawable mDrawable;
+    ConstraintLayout mLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        mLayout = (ConstraintLayout) findViewById(R.id.login_layout);
+        mDrawable = (AnimationDrawable) mLayout.getBackground();
+        mDrawable.setEnterFadeDuration(2000);
+        mDrawable.setExitFadeDuration(2000);
+        mDrawable.start();
     }
 
     public void enter(View view) {
