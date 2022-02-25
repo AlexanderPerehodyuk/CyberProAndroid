@@ -38,5 +38,7 @@
     <string name="confirm">Подтвердить</string>
     <string name="current_password">Введите текущий пароль</string>
     <string name="new_password">Введите новый пароль</string>
+    <string name="view_password">Показать пароль</string>
+    <string name="not_register">Ещё не зарегестрированы?</string>
 
 </resources>

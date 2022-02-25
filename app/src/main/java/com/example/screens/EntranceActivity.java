@@ -11,6 +11,6 @@ public class EntranceActivity extends BaseActivity {
         setContentView(R.layout.activity_entrance);
 
         findViewById(R.id.buttonRegistration).setOnClickListener(view -> startActivity(RegisterActivity.class));
-        findViewById(R.id.button2).setOnClickListener(view -> startActivity(LoginActivity.class));
+//        findViewById(R.id.button2).setOnClickListener(view -> startActivity(LoginActivity.class));
     }
 }
