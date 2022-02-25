@@ -40,7 +40,10 @@ public class RegisterActivity extends LoginActivity {
             String mail = clearSpacebars(findViewById(R.id.editMail));
             String password = getText(findViewById(R.id.editPassword));
             String passwordAgain = getText(findViewById(R.id.editPasswordAgain));
-
+            if (mail.contains("@mailinator") || mail.contains("@maildrop") || mail.contains("@tempr")) {
+                makeToast("Пожалуйста, укажите свою настоящую почту для регистрации в приложении!");
+                return;
+            }
             if (name.length() == 0) {
                 makeToast("Введите ваше имя!");
                 return;
