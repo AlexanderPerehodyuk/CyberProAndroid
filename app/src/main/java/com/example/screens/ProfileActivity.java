@@ -17,10 +17,6 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mLayout = (ConstraintLayout) findViewById(R.id.profile_layout);
-        mDrawable = (AnimationDrawable) mLayout.getBackground();
-        mDrawable.setEnterFadeDuration(2000);
-        mDrawable.setExitFadeDuration(2000);
-        mDrawable.start();
         setContentView(R.layout.activity_profile);
     }
 

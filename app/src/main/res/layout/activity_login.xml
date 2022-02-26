@@ -2,97 +2,91 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:background="@drawable/animation_list"
     android:id="@+id/login_layout"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/animation_list">
+    <!--    <TextView-->
+    <!--        android:id="@+id/mailText"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="@string/email"-->
+    <!--        android:textColor="@color/black"-->
+    <!--        android:textSize="20sp"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="@+id/guideline6" />-->
 
-
-
-
-
+    <!--    <EditText-->
+    <!--        android:id="@+id/editMail"-->
+    <!--        android:layout_width="300dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:background="@drawable/input_bg"-->
+    <!--        android:gravity="center"-->
+    <!--        android:imeOptions="actionDone"-->
+    <!--        android:inputType="textEmailAddress"-->
+    <!--        android:minHeight="48dp"-->
+    <!--        android:textColor="@color/black"-->
+    <!--        app:layout_constraintEnd_toEndOf="@+id/mailText"-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/mailText"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/mailText" />-->
 
     <!--    <TextView-->
-<!--        android:id="@+id/mailText"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="@string/email"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:textSize="20sp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/guideline6" />-->
+    <!--        android:id="@+id/passwordText"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="@string/password"-->
+    <!--        android:textColor="@color/black"-->
+    <!--        android:textSize="20sp"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="@+id/guideline7" />-->
 
-<!--    <EditText-->
-<!--        android:id="@+id/editMail"-->
-<!--        android:layout_width="300dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:background="@drawable/input_bg"-->
-<!--        android:gravity="center"-->
-<!--        android:imeOptions="actionDone"-->
-<!--        android:inputType="textEmailAddress"-->
-<!--        android:minHeight="48dp"-->
-<!--        android:textColor="@color/black"-->
-<!--        app:layout_constraintEnd_toEndOf="@+id/mailText"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/mailText"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/mailText" />-->
+    <!--    <EditText-->
+    <!--        android:id="@+id/editPassword"-->
+    <!--        android:layout_width="300dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:background="@drawable/input_bg"-->
+    <!--        android:gravity="center"-->
+    <!--        android:imeOptions="actionDone"-->
+    <!--        android:inputType="textPassword"-->
+    <!--        android:minHeight="48dp"-->
+    <!--        android:textColor="@color/black"-->
+    <!--        app:layout_constraintEnd_toEndOf="@+id/passwordText"-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/passwordText"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/passwordText" />-->
 
-<!--    <TextView-->
-<!--        android:id="@+id/passwordText"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="@string/password"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:textSize="20sp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/guideline7" />-->
+    <!--    <Button-->
+    <!--        android:id="@+id/buttonRegister"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="50dp"-->
+    <!--        android:background="@drawable/custom_button"-->
+    <!--        android:onClick="enter"-->
+    <!--        android:text="@string/enter"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/editPassword" />-->
 
-<!--    <EditText-->
-<!--        android:id="@+id/editPassword"-->
-<!--        android:layout_width="300dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:background="@drawable/input_bg"-->
-<!--        android:gravity="center"-->
-<!--        android:imeOptions="actionDone"-->
-<!--        android:inputType="textPassword"-->
-<!--        android:minHeight="48dp"-->
-<!--        android:textColor="@color/black"-->
-<!--        app:layout_constraintEnd_toEndOf="@+id/passwordText"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/passwordText"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/passwordText" />-->
+    <!--    <androidx.constraintlayout.widget.Guideline-->
+    <!--        android:id="@+id/guideline3"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="horizontal"-->
+    <!--        app:layout_constraintGuide_begin="20dp" />-->
 
-<!--    <Button-->
-<!--        android:id="@+id/buttonRegister"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="50dp"-->
-<!--        android:background="@drawable/custom_button"-->
-<!--        android:onClick="enter"-->
-<!--        android:text="@string/enter"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/editPassword" />-->
+    <!--    <androidx.constraintlayout.widget.Guideline-->
+    <!--        android:id="@+id/guideline6"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="horizontal"-->
+    <!--        app:layout_constraintGuide_percent="0.11627907" />-->
 
-<!--    <androidx.constraintlayout.widget.Guideline-->
-<!--        android:id="@+id/guideline3"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="horizontal"-->
-<!--        app:layout_constraintGuide_begin="20dp" />-->
-
-<!--    <androidx.constraintlayout.widget.Guideline-->
-<!--        android:id="@+id/guideline6"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="horizontal"-->
-<!--        app:layout_constraintGuide_percent="0.11627907" />-->
-
-<!--    <androidx.constraintlayout.widget.Guideline-->
-<!--        android:id="@+id/guideline7"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="horizontal"-->
-<!--        app:layout_constraintGuide_begin="187dp" />-->
+    <!--    <androidx.constraintlayout.widget.Guideline-->
+    <!--        android:id="@+id/guideline7"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="horizontal"-->
+    <!--        app:layout_constraintGuide_begin="187dp" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
