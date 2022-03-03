@@ -19,14 +19,8 @@
         android:theme="@style/Theme.Trans"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ProfileActivity"
-            android:exported="true"
-            android:label="@string/title_activity_profile"
-            android:theme="@style/Theme.Trans.NoActionBar" />
-        <activity
-            android:name=".LoadingActivity"
-            android:exported="true"
-            android:screenOrientation="fullSensor">
+            android:name=".MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,32 +28,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
-            android:exported="true"
-            android:screenOrientation="fullSensor" />
-        <activity
-            android:name=".EntranceActivity"
-            android:exported="true"
-            android:screenOrientation="fullSensor" />
-        <activity
-            android:name=".ProblemsActivity"
-            android:exported="true"
-            android:screenOrientation="fullSensor" />
-        <activity
-            android:name=".MainScreen"
-            android:exported="true"
-            android:screenOrientation="fullSensor" />
-        <activity
-            android:name=".RegisterActivity"
-            android:exported="true"
-            android:screenOrientation="fullSensor" />
-        <activity
-            android:name=".AddProblem"
-            android:exported="true"
-            android:screenOrientation="fullSensor" />
-        <activity
             android:name=".MapScreen"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:parentActivityName=".MainActivity">
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
     </application>
 
 </manifest>

@@ -28,11 +28,18 @@
     <string name="email">Email</string>
     <string name="password">Пароль</string>
     <string name="change_password">Изменить пароль</string>
+    <string name="change_name">Изменить имя</string>
+    <string name="change_surname">Изменить фамилию</string>
     <string name="repeat_password">Повторите пароль</string>
     <string name="title_activity_entrance">EntranceActivity</string>
     <string name="auth">Авторизация</string>
     <string name="enter">Войти</string>
     <string name="title_activity_profile">ProfileActivity</string>
     <string name="confirm">Подтвердить</string>
+    <string name="current_password">Введите текущий пароль</string>
+    <string name="new_password">Введите новый пароль</string>
+    <string name="view_password">Показать пароль</string>
+    <string name="not_register">Ещё не зарегестрированы?</string>
+    <string name="cancel">Отмена</string>
 
 </resources>

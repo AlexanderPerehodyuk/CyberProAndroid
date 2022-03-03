@@ -13,12 +13,13 @@ import com.gun0912.tedpermission.normal.TedPermission;
 
 import java.util.List;
 
-public class LoadingActivity extends BaseActivity {
+
+public class MainActivity extends BaseActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_loading);
-
+        setContentView(R.layout.main_activity);
         Service.post(() -> {
             Service.init(this);
             String data = Service.readFromFile("DATA");
@@ -32,11 +33,10 @@ public class LoadingActivity extends BaseActivity {
                     .setPermissionListener(new PermissionListener() { // создаёт окно для запроса
                         @Override
                         public void onPermissionGranted() {
-                            new LocationModification(getApplicationContext(), () -> startActivity(EntranceActivity.class));
                         }
 
                         @Override
-                        public void onPermissionDenied(List<String> deniedPermissions) { // если не дали разрешение то выход из приложения
+                        public void onPermissionDenied(List<String> deniedPermissions) {
                             makeToast("Доступ запрещён");
                             finish();
                         }
@@ -45,9 +45,10 @@ public class LoadingActivity extends BaseActivity {
                     .setPermissions(Manifest.permission.ACCESS_FINE_LOCATION) // как я понял, это разрешение передать в настройках местоположение для приложения
                     .check();
         });
-    }
-
-    @Override
-    public void onBackPressed() {
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container, LoginFragment.newInstance())
+                    .commitNow();
+        }
     }
 }

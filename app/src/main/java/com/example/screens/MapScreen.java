@@ -41,7 +41,7 @@ public class MapScreen extends BaseActivity implements GeoObjectTapListener, Use
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-
+        Intent intent = getIntent();
         mapview = findViewById(R.id.mapview); // находим нашу карту в layout
 
         resetPos();
