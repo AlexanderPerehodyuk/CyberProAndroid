@@ -5,7 +5,7 @@
     android:id="@+id/login_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/animation_list">
+>
     <!--    <TextView-->
     <!--        android:id="@+id/mailText"-->
     <!--        android:layout_width="wrap_content"-->
