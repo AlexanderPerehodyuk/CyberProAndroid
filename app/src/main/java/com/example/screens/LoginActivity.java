@@ -23,10 +23,7 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mLayout = (ConstraintLayout) findViewById(R.id.login_layout);
-        mDrawable = (AnimationDrawable) mLayout.getBackground();
-        mDrawable.setEnterFadeDuration(2000);
-        mDrawable.setExitFadeDuration(2000);
-        mDrawable.start();
+
     }
 
     public void enter(View view) {
