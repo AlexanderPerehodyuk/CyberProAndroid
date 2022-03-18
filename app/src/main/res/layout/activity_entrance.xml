@@ -140,7 +140,7 @@
             android:layout_marginBottom="10dp"
             android:text="@string/not_register"
             android:textColor="@color/black"
-            android:textSize="14sp"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -151,7 +151,7 @@
             android:layout_marginBottom="56dp"
             android:text="Зарегистрироваться"
             android:textColor="@color/purple_500"
-            android:textSize="14sp"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView" />

@@ -6,116 +6,287 @@
     android:id="@+id/profile_layout"
     android:layout_height="match_parent">
 
-    <TextView
-        android:paddingTop="15dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/profile"
-        android:textColor="@color/black"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints" />
     <LinearLayout
-
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        >
-        <TextView
-
-            android:id="@+id/changeName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/change_name"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
-
-        <EditText
-            android:layout_marginTop="10dp"
-            android:id="@+id/inputForChangeName"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/input_bg"
-            android:gravity="center"
-            android:imeOptions="actionDone"
-            android:inputType="textPassword"
-            android:minHeight="48dp"
-            android:textColor="@color/black" />
-        <TextView
-            android:layout_marginTop="10dp"
-
-            android:id="@+id/changeSurname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/change_surname"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
-
-        <EditText
-            android:layout_marginTop="10dp"
-
-            android:id="@+id/inputForChangeSurname"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/input_bg"
-            android:gravity="center"
-            android:imeOptions="actionDone"
-            android:inputType="textPassword"
-            android:minHeight="48dp"
-            android:textColor="@color/black" />
-
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:layout_marginTop="10dp"
 
-            android:id="@+id/changePassword"
+            android:id="@+id/profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/change_password"
+            android:layout_marginTop="20dp"
+            android:text="@string/profile"
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="30sp" />
 
-
-        <EditText
-            android:id="@+id/inputCurrentPassword"
-
-            android:layout_width="300dp"
+        <ScrollView
+            android:id="@+id/scrollView2"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/input_bg"
-            android:gravity="center"
-            android:hint="@string/current_password"
-            android:imeOptions="actionDone"
-            android:inputType="textPassword"
-            android:minHeight="48dp"
-            android:textColor="@color/black" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView2"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="0dp">
 
-        <EditText
-            android:layout_marginTop="10dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
 
-            android:id="@+id/changePasswordET"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/input_bg"
-            android:gravity="center"
-            android:hint="@string/new_password"
-            android:imeOptions="actionDone"
-            android:inputType="textPassword"
-            android:minHeight="48dp"
-            android:textColor="@color/black" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:textColorHint="#808080"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.7">
 
+                    <EditText
+                        android:id="@+id/changeName"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:hint="@string/change_name"
+                        android:imeOptions="actionDone"
+                        android:inputType="text"
+                        android:minWidth="48dp"
+                        android:minHeight="48dp"
+                        android:padding="10dp"
+                        android:textColor="@color/black" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_surname"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textColorHint="#808080"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_name"
+                    app:layout_constraintWidth_percent="0.7">
+
+                    <EditText
+                        android:id="@+id/changeSurname"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:hint="@string/change_surname"
+                        android:imeOptions="actionDone"
+                        android:inputType="text"
+                        android:minWidth="48dp"
+                        android:minHeight="48dp"
+                        android:padding="10dp"
+                        android:textColor="@color/black" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_email"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textColorHint="#808080"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_surname"
+                    app:layout_constraintWidth_percent="0.7">
+
+                    <EditText
+                        android:id="@+id/changeMail"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:hint="@string/change_mail"
+                        android:imeOptions="actionDone"
+                        android:inputType="textEmailAddress"
+                        android:minWidth="48dp"
+                        android:minHeight="48dp"
+                        android:padding="10dp"
+                        android:textColor="@color/black" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_password"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textColorHint="#808080"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_email"
+                    app:layout_constraintWidth_percent="0.7">
+
+                    <EditText
+                        android:id="@+id/currentPassword"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:hint="@string/current_password"
+                        android:imeOptions="actionDone"
+                        android:inputType="textPassword"
+                        android:minWidth="48dp"
+                        android:minHeight="48dp"
+                        android:padding="10dp"
+                        android:textColor="@color/black" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_passwordAgainText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textColorHint="#808080"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_password"
+                    app:layout_constraintWidth_percent="0.7">
+
+                    <EditText
+                        android:id="@+id/changePassword"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:hint="@string/new_password"
+                        android:imeOptions="actionDone"
+                        android:inputType="textPassword"
+                        android:minWidth="48dp"
+                        android:minHeight="48dp"
+                        android:padding="10dp"
+                        android:textColor="@color/black" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
 
         <Button
             android:id="@+id/buttonRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/custom_button"
+            android:layout_marginBottom="20dp"
+
+            android:drawableRight="@drawable/ic_baseline_arrow_right_alt_24"
             android:onClick="enter"
-            android:text="@string/confirm" />
+            android:text="@string/confirm"
+            android:textSize="15sp" />
     </LinearLayout>
+    <!--    <TextView-->
+<!--        android:paddingTop="15dp"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/profile"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="30sp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        tools:ignore="MissingConstraints" />-->
+<!--    <LinearLayout-->
+
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:orientation="vertical"-->
+<!--        android:gravity="center"-->
+<!--        >-->
+<!--        <TextView-->
+
+<!--            android:id="@+id/changeName"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/change_name"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="20sp" />-->
+
+<!--        <EditText-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:id="@+id/inputForChangeName"-->
+<!--            android:layout_width="300dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/input_bg"-->
+<!--            android:gravity="center"-->
+<!--            android:imeOptions="actionDone"-->
+<!--            android:inputType="textPassword"-->
+<!--            android:minHeight="48dp"-->
+<!--            android:textColor="@color/black" />-->
+<!--        <TextView-->
+<!--            android:layout_marginTop="10dp"-->
+
+<!--            android:id="@+id/changeSurname"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/change_surname"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="20sp" />-->
+
+<!--        <EditText-->
+<!--            android:layout_marginTop="10dp"-->
+
+<!--            android:id="@+id/inputForChangeSurname"-->
+<!--            android:layout_width="300dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/input_bg"-->
+<!--            android:gravity="center"-->
+<!--            android:imeOptions="actionDone"-->
+<!--            android:inputType="textPassword"-->
+<!--            android:minHeight="48dp"-->
+<!--            android:textColor="@color/black" />-->
+
+
+<!--        <TextView-->
+<!--            android:layout_marginTop="10dp"-->
+
+<!--            android:id="@+id/changePassword"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/change_password"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="20sp" />-->
+
+
+<!--        <EditText-->
+<!--            android:id="@+id/inputCurrentPassword"-->
+
+<!--            android:layout_width="300dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:background="@drawable/input_bg"-->
+<!--            android:gravity="center"-->
+<!--            android:hint="@string/current_password"-->
+<!--            android:imeOptions="actionDone"-->
+<!--            android:inputType="textPassword"-->
+<!--            android:minHeight="48dp"-->
+<!--            android:textColor="@color/black" />-->
+
+<!--        <EditText-->
+<!--            android:layout_marginTop="10dp"-->
+
+<!--            android:id="@+id/changePasswordET"-->
+<!--            android:layout_width="300dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/input_bg"-->
+<!--            android:gravity="center"-->
+<!--            android:hint="@string/new_password"-->
+<!--            android:imeOptions="actionDone"-->
+<!--            android:inputType="textPassword"-->
+<!--            android:minHeight="48dp"-->
+<!--            android:textColor="@color/black" />-->
+
+
+<!--        <Button-->
+<!--            android:id="@+id/buttonRegister"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:background="@drawable/custom_button"-->
+<!--            android:onClick="enter"-->
+<!--            android:text="@string/confirm" />-->
+<!--    </LinearLayout>-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
