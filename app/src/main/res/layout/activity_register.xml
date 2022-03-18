@@ -13,6 +13,7 @@
         android:orientation="vertical">
 
         <TextView
+
             android:id="@+id/registerText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -169,7 +170,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:background="@drawable/custom_button"
+
             android:drawableRight="@drawable/ic_baseline_arrow_right_alt_24"
             android:onClick="enter"
             android:text="@string/make_register"

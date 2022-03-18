@@ -31,6 +31,7 @@
         app:layout_constraintStart_toStartOf="parent"></TextView>
 
     <ScrollView
+
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -40,6 +41,7 @@
         tools:layout_editor_absoluteX="0dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusable="true"
@@ -83,6 +85,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:gravity="center"
                 android:id="@+id/layout_password"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -105,6 +108,16 @@
                     android:textColor="#000000"
                     android:textColorHint="#808080"
                     android:textSize="24sp" />
+
+                <Button
+
+                    android:id="@+id/button2"
+                    android:layout_width="130dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/custom_button"
+                    android:drawableRight="@drawable/ic_baseline_arrow_right_alt_24"
+                    android:text="Войти" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -117,7 +130,9 @@
         android:layout_marginTop="112dp"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/button2">
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
+
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
@@ -142,16 +157,6 @@
             app:layout_constraintStart_toEndOf="@+id/textView" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="130dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/custom_button"
-        android:drawableRight="@drawable/ic_baseline_arrow_right_alt_24"
-        android:text="Войти"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
